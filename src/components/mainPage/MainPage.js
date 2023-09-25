@@ -1,23 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShopFilter from "../shopFilter/ShopFilter";
 import Shop from "../shop/Shop";
 import Login from "../login/Login";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import {useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
-const products = [
-  { type: "Remera", price: 8000, color: "Azul", size: "M", amount: 3 },
-  { type: "Remera", price: 8000, color: "Rojo", size: "L", amount: 3 },
-  { type: "Remera", price: 8000, color: "Amarillo", size: "XL", amount: 3 },
-  { type: "Remera", price: 8000, color: "Naranja", size: "S", amount: 3 },
-  { type: "Remera", price: 8000, color: "Azul", size: "S", amount: 0 },
-  { type: "Remera", price: 8000, color: "Verde", size: "M", amount: 3 },
-];
+// const products = [
+//   { type: "Remera", price: 8000, color: "Azul", size: "M", amount: 3 },
+//   { type: "Remera", price: 8000, color: "Rojo", size: "L", amount: 3 },
+//   { type: "Remera", price: 8000, color: "Amarillo", size: "XL", amount: 3 },
+//   { type: "Remera", price: 8000, color: "Naranja", size: "S", amount: 3 },
+//   { type: "Remera", price: 8000, color: "Azul", size: "S", amount: 0 },
+//   { type: "Remera", price: 8000, color: "Verde", size: "M", amount: 3 },
+// ];
 
 const MainPage = () => {
   const [colorSelected, setcolorSelected] = useState(false);
-  const [productsFiltered, setProductsFiltered] = useState(products);
+  const [products, setProducts] = useState([]);
+  const [productsFiltered, setProductsFiltered] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:8000/products", {
+      headers: {
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((productsData) => {
+        setProducts(productsData);
+        setProductsFiltered(productsData);
+        console.log(productsData);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const selectHandler = (color) => {
     setcolorSelected(color);
@@ -32,7 +48,7 @@ const MainPage = () => {
   };
 
   const LoginHandler = () => {
-    navigate("/login")
+    navigate("/login");
   };
   return (
     <div>
@@ -43,13 +59,12 @@ const MainPage = () => {
           </Card>
         </Col>
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={LoginHandler}>Iniciar seccion</Button>
+          <Button onClick={LoginHandler}>Iniciar sesion</Button>
         </Col>
       </Row>
-      
+
       <ShopFilter colorSelected={colorSelected} colorChange={selectHandler} />
       <Shop products={productsFiltered} />
-      <Login />
     </div>
   );
 };

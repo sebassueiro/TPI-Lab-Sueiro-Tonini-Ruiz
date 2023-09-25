@@ -28,7 +28,7 @@ const Login = () => {
           <input
             className="form-control bg-light"
             type="text"
-            placeholder="Username"
+            placeholder="Email"
           />
         </div>
         <div class="input-group mt-3">
