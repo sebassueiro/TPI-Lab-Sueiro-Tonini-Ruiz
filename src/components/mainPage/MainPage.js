@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ShopFilter from "../shopFilter/ShopFilter";
 import Shop from "../shop/Shop";
-import Login from "../login/Login";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
-
-// const products = [
-//   { type: "Remera", price: 8000, color: "Azul", size: "M", amount: 3 },
-//   { type: "Remera", price: 8000, color: "Rojo", size: "L", amount: 3 },
-//   { type: "Remera", price: 8000, color: "Amarillo", size: "XL", amount: 3 },
-//   { type: "Remera", price: 8000, color: "Naranja", size: "S", amount: 3 },
-//   { type: "Remera", price: 8000, color: "Azul", size: "S", amount: 0 },
-//   { type: "Remera", price: 8000, color: "Verde", size: "M", amount: 3 },
-// ];
 
 const MainPage = () => {
   const [colorSelected, setcolorSelected] = useState(false);
@@ -62,7 +52,6 @@ const MainPage = () => {
           <Button onClick={LoginHandler}>Iniciar sesion</Button>
         </Col>
       </Row>
-
       <ShopFilter colorSelected={colorSelected} colorChange={selectHandler} />
       <Shop products={productsFiltered} />
     </div>
