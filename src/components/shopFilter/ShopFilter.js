@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const ShopFilter = ({ colorSelected, colorChange }) => {
   const colorHandler = (event) => {
     colorChange(event.target.value);
