@@ -40,6 +40,15 @@ const MainPage = () => {
   const LoginHandler = () => {
     navigate("/login");
   };
+
+  const addProductHandler = () => {
+    navigate("/addProduct");
+  };
+
+  const createAdminHandler = () => {
+    navigate("/createAdmin");
+  };
+
   return (
     <div>
       <Row>
@@ -48,6 +57,15 @@ const MainPage = () => {
             <Card.Body className="p-4 m-4">PRODUCTOS</Card.Body>
           </Card>
         </Col>
+
+        <Col className="d-flex justify-content-end mx-4 py-2">
+          <Button onClick={addProductHandler}>Añadir producto</Button>
+        </Col>
+
+        <Col className="d-flex justify-content-end mx-4 py-2">
+          <Button onClick={createAdminHandler}>Crear Admin</Button>
+        </Col>
+
         <Col className="d-flex justify-content-end mx-4 py-2">
           <Button onClick={LoginHandler}>Iniciar sesion</Button>
         </Col>
