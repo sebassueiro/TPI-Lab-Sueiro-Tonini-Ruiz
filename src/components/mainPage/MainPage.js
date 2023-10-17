@@ -40,6 +40,10 @@ const MainPage = () => {
     navigate("/createAdmin");
   };
 
+  const manageUserHandler = () => {
+    navigate("/manageUser");
+  };
+
   return (
     <div>
       <Row>
@@ -55,6 +59,10 @@ const MainPage = () => {
 
         <Col className="d-flex justify-content-end mx-4 py-2">
           <Button onClick={createAdminHandler}>Crear Admin</Button>
+        </Col>
+
+        <Col className="d-flex justify-content-end mx-4 py-2">
+          <Button onClick={manageUserHandler}>Administrar Usuarios</Button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
