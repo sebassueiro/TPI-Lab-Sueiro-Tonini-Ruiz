@@ -5,7 +5,10 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
 const MainPage = () => {
-  const [colorSelected, setcolorSelected] = useState(false);
+  const [typeSelected, setTypeSelected] = useState("Todos");
+  const [colorSelected, setColorSelected] = useState("Todos");
+  const [sizeSelected, setSizeSelected] = useState("Todos");
+
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
   const navigate = useNavigate();
@@ -24,18 +27,6 @@ const MainPage = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  const selectHandler = (color) => {
-    setcolorSelected(color);
-    if (color === "Todos") {
-      setProductsFiltered(products);
-    } else {
-      const productsFiltered = products.filter(
-        (product) => product.color.toString() === color
-      );
-      setProductsFiltered(productsFiltered);
-    }
-  };
 
   const LoginHandler = () => {
     navigate("/login");
@@ -70,8 +61,25 @@ const MainPage = () => {
           <Button onClick={LoginHandler}>Iniciar sesion</Button>
         </Col>
       </Row>
-      <ShopFilter colorSelected={colorSelected} colorChange={selectHandler} />
-      <Shop products={productsFiltered} />
+
+      <ShopFilter
+        typeSelected={typeSelected}
+        setTypeSelected={setTypeSelected}
+        colorSelected={colorSelected}
+        setColorSelected={setColorSelected}
+        sizeSelected={sizeSelected}
+        setSizeSelected={setSizeSelected}
+        products={products}
+        setProductsFiltered={setProductsFiltered}
+      />
+
+      {productsFiltered.length === 0 ? (
+        <h3 className="d-flex justify-content-center mx-auto px-4">
+          ¡No hay productos con con dichos filtros!
+        </h3>
+      ) : (
+        <Shop products={productsFiltered} />
+      )}
     </div>
   );
 };
