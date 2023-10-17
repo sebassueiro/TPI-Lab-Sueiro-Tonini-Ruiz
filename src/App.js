@@ -9,6 +9,7 @@ import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import AddProduct from "./components/addProduct/AddProduct";
 import CreateAdmin from "./components/createAdmin/CreateAdmin";
+import ManageUser from "./components/manageUser/ManageUser";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const App = () => {
     {
       path: "/addProduct",
       element: <AddProduct />,
+    },
+    {
+      path: "/manageUser",
+      element: <ManageUser />,
     },
     {
       path: "/createAdmin",
