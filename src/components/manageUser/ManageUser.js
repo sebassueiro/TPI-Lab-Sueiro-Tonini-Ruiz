@@ -34,7 +34,8 @@ const ManageUser = () => {
       .then((response) => {
         if (response.ok) {
           console.log(`Usuario con ID ${id} eliminado con éxito.`);
-          // Puedes realizar cualquier acción adicional que necesites aquí
+          const updatedUsers = users.filter((user) => user.id !== id);
+          setUsersFiltered(updatedUsers);
         } else {
           throw new Error("No se pudo eliminar el usuario.");
         }
@@ -42,11 +43,19 @@ const ManageUser = () => {
       .catch((error) => console.error(error));
   };
 
+  const createAdminHandler = () => {
+    navigate("/createAdmin");
+  };
+
   return (
     <div>
       <Row className="d-flex justify-content pb-4 pt-2">
         <Col className="d-flex justify-content pb-4 pt-2">
           <h1>Administrar usuarios</h1>
+        </Col>
+
+        <Col className="d-flex justify-content-end mx-4 py-2">
+          <Button onClick={createAdminHandler}>Crear Admin</Button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-3 py-2">
