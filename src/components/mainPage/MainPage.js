@@ -32,16 +32,12 @@ const MainPage = () => {
     navigate("/login");
   };
 
-  const addProductHandler = () => {
-    navigate("/addProduct");
-  };
-
-  const createAdminHandler = () => {
-    navigate("/createAdmin");
-  };
-
   const manageUserHandler = () => {
     navigate("/manageUser");
+  };
+
+  const manageProductHandler = () => {
+    navigate("/manageProducts");
   };
 
   return (
@@ -54,11 +50,7 @@ const MainPage = () => {
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={addProductHandler}>Añadir producto</Button>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={createAdminHandler}>Crear Admin</Button>
+          <Button onClick={manageProductHandler}>Administrar Productos</Button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
@@ -83,7 +75,7 @@ const MainPage = () => {
 
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
-          ¡No hay productos con con dichos filtros!
+          ¡No hay productos con dichos filtros!
         </h3>
       ) : (
         <Shop products={productsFiltered} />

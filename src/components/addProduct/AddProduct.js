@@ -112,10 +112,10 @@ const AddProduct = () => {
         <Col className="d-flex justify-content-end mx-3 py-2">
           <Button
             onClick={() => {
-              navigate("/");
+              navigate("/manageProducts");
             }}
           >
-            Volver al menu
+            Volver a administrar productos
           </Button>
         </Col>
       </Row>

@@ -10,6 +10,7 @@ import SignUp from "./components/signUp/SignUp";
 import AddProduct from "./components/addProduct/AddProduct";
 import CreateAdmin from "./components/createAdmin/CreateAdmin";
 import ManageUser from "./components/manageUser/ManageUser";
+import ManageProducts from "./components/manageProducts/ManageProducts";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -33,6 +34,7 @@ const App = () => {
       path: "/addProduct",
       element: <AddProduct />,
     },
+    { path: "/manageProducts", element: <ManageProducts /> },
     {
       path: "/manageUser",
       element: <ManageUser />,

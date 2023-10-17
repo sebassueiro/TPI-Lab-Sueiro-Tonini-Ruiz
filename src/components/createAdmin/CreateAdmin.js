@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -139,12 +140,14 @@ const CreateAdmin = () => {
           </Link>
         </p>
         <p class="d-flex justify-content-center mt-4">
-          <Link
-            to="/"
+          <Button
+            onClick={() => {
+              navigate("/manageUser");
+            }}
             className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
-            Volver a la tienda
-          </Link>
+            Volver a administrar usuario
+          </Button>
         </p>
       </div>
     </div>
