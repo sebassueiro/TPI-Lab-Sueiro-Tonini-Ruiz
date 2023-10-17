@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
 const AddProduct = () => {
@@ -97,36 +97,72 @@ const AddProduct = () => {
       setColor("");
       setSize("");
       setAmount("");
+
+      alert("Producto añadido con exito!");
     }
   };
 
   return (
     <div>
+      <Row className="d-flex justify-content pb-4 pt-2">
+        <Col className="d-flex justify-content pb-4 pt-2">
+          <h1>-Añadir productos-</h1>
+        </Col>
+
+        <Col className="d-flex justify-content-end mx-3 py-2">
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Volver al menu
+          </Button>
+        </Col>
+      </Row>
       <form>
-        <label>Tipo de prenda:</label>
-        <input type="text" onChange={changeTypeHandler}></input>
+        <Col className="d-flex justify-content-center mx-3 py-4">
+          <label>Tipo de prenda:</label>
+          <select onChange={changeTypeHandler} value={type}>
+            <option value="">Selecione el tipo de prenda</option>
+            <option value="Remera">Remera</option>
+            <option value="Buzo">Buzo</option>
+            <option value="Pantalon">Pantalon</option>
+            <option value="Campera">Campera</option>
+          </select>
 
-        <label>Precio:</label>
-        <input type="number" onChange={changePriceHandler}></input>
+          <label>Precio:</label>
+          <input type="number" onChange={changePriceHandler} />
 
-        <label>Color:</label>
-        <input type="text" onChange={changeColorHandler}></input>
+          <label>Color:</label>
+          <select onChange={changeColorHandler} value={color}>
+            <option value="">Seleccione un color</option>
+            <option value="Azul">Azul</option>
+            <option value="Rojo">Rojo</option>
+            <option value="Amarillo">Amarillo</option>
+            <option value="Naranja">Naranja</option>
+            <option value="Verde">Verde</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Negro">Negro</option>
+            <option value="Gris">Gris</option>
+          </select>
 
-        <label>Talle:</label>
-        <input type="text" onChange={changeSizeHandler}></input>
+          <label>Talle:</label>
+          <select onChange={changeSizeHandler} value={size}>
+            <option value="">Seleccione un talle</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
 
-        <label>Cantidad de la prenda:</label>
-        <input type="number" onChange={changeAmountHandler}></input>
-
-        <Button onClick={addProductsHandler}>Añadir producto</Button>
+          <label>Cantidad de la prenda:</label>
+          <input type="number" onChange={changeAmountHandler} />
+        </Col>
+        <Col className="d-flex justify-content-center mx-3 py-4">
+          <Button onClick={addProductsHandler}>Añadir producto</Button>
+        </Col>
       </form>
-      <Button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Volver al menu
-      </Button>
     </div>
   );
 };
