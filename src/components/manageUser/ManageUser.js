@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import ListUsers from "../listUsers/ListUsers";
 import FilteredUsers from "../filteredUsers/FilteredUsers";
@@ -48,34 +47,21 @@ const ManageUser = () => {
   };
 
   return (
-    <div>
-      <Row className="d-flex justify-content pb-4 pt-2">
-        <Col className="d-flex justify-content pb-4 pt-2">
-          <h1>Administrar usuarios</h1>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={createAdminHandler}>Crear Admin</Button>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-3 py-2">
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Volver al menu
-          </Button>
-        </Col>
-      </Row>
+    <div className="d-flex flex-column align-items-center justify-content-center h-100  p-4">
       <FilteredUsers
         typeUserSelected={typeUserSelected}
         setTypeUserSelected={setTypeUserSelected}
         users={users}
         setUsersFiltered={setUsersFiltered}
       />
-      <ListUsers users={usersFiltered} deleteUserHandler={deleteUserHandler} />
-    </div>
+
+      <ListUsers users={usersFiltered} deleteUserHandler={deleteUserHandler} /> 
+
+      <div className="d-flex mt-3">
+        <button className="m-2 btn btn-outline-dark" onClick={createAdminHandler} >Crear Admin</button>
+        <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button> 
+      </div>
+    </div> 
   );
 };
 

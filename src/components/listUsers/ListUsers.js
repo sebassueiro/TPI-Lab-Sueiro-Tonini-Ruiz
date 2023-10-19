@@ -1,9 +1,9 @@
-import { Button } from "react-bootstrap";
+import './ListUser.css'
 
 const ListUsers = ({ users, deleteUserHandler }) => {
   return (
-    <div>
-      <table>
+    <div className="d-flex  flex-column align-items-center w-100">
+      <table className="table table-hover mx-auto text-center ">
         <thead>
           <tr>
             <th>Id</th>
@@ -16,7 +16,7 @@ const ListUsers = ({ users, deleteUserHandler }) => {
         </thead>
         {users.map((user) => (
           <tbody>
-            <tr>
+            <tr >
               <td>{user.id}</td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
@@ -24,9 +24,7 @@ const ListUsers = ({ users, deleteUserHandler }) => {
               <td>{user.password}</td>
               <td>{user.userType}</td>
               <td>
-                <Button onClick={() => deleteUserHandler(user.id)}>
-                  Eliminar Usuario
-                </Button>
+              <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
               </td>
             </tr>
           </tbody>

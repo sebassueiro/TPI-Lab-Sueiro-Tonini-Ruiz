@@ -131,7 +131,7 @@ const AddProduct = () => {
           </select>
 
           <label>Precio:</label>
-          <input type="number" onChange={changePriceHandler} />
+          <input type="number" onChange={changePriceHandler} placeholder="Ingrese Precio unitario"/>
 
           <label>Color:</label>
           <select onChange={changeColorHandler} value={color}>

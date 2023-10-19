@@ -43,22 +43,17 @@ const MainPage = () => {
   return (
     <div>
       <Row>
-        <Col md={3}>
-          <Card>
-            <Card.Body className="p-4 m-4">PRODUCTOS</Card.Body>
-          </Card>
+
+        <Col className="d-flex justify-content-end mx-4 py-2">
+          <button className="m-2 btn btn-outline-dark" onClick={manageProductHandler}>Administrar Productos</button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={manageProductHandler}>Administrar Productos</Button>
+          <button className="m-2 btn btn-outline-dark" onClick={manageUserHandler}>Administrar Usuarios</button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={manageUserHandler}>Administrar Usuarios</Button>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={LoginHandler}>Iniciar sesion</Button>
+          <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>Iniciar sesion</button>
         </Col>
       </Row>
 
