@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './ListUser.css'
 
 const ListUsers = ({ users, deleteUserHandler }) => {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="d-flex  flex-column align-items-center w-100">
       <table className="table table-hover mx-auto text-center ">
@@ -24,7 +26,13 @@ const ListUsers = ({ users, deleteUserHandler }) => {
               <td>{user.password}</td>
               <td>{user.userType}</td>
               <td>
-              <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
+                <div className="button-container" >
+                  <button id='tacho' className={`button ${isHovered ? 'hovered' : ''}`}
+                   onMouseEnter={() => setIsHovered(true)}
+                   onMouseLeave={() => setIsHovered(false)}><span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
+                  </button>
+                  {isHovered && <div className="hover-text">Deseas eliminar?</div>}
+                </div>
               </td>
             </tr>
           </tbody>
