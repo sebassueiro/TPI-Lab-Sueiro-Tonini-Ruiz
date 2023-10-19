@@ -92,7 +92,7 @@ const CreateAdmin = () => {
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-5 pb-2 rounded-5 text-secondary shadow">
-        <div className="text-center fs-1 fw-bold">Crea tu cuenta</div>
+        <div className="text-center fs-1 fw-bold">Crea el administrador</div>
         <div className="input-group mt-4">
           <input
             onChange={changeFirstNameHandler}
@@ -131,23 +131,14 @@ const CreateAdmin = () => {
           </button>
         </div>
         <p class="d-flex justify-content-center mt-4">
-          Iniciar sesion{" "}
-          <Link
-            to="/login"
-            className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-          >
-            Click aqui!
-          </Link>
-        </p>
-        <p class="d-flex justify-content-center mt-4">
-          <Button
+          <button
             onClick={() => {
               navigate("/manageUser");
             }}
-            className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            className="btn btn-outline-dark"
           >
             Volver a administrar usuario
-          </Button>
+          </button>
         </p>
       </div>
     </div>

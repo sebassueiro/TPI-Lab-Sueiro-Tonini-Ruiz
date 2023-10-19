@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ListProducts from "../listProducts/ListProducts";
 import { useNavigate } from "react-router";
 import ShopFilter from "../shopFilter/ShopFilter";
-import { Button, Col, Row } from "react-bootstrap";
 
 const ManageProducts = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
@@ -53,27 +52,7 @@ const ManageProducts = () => {
   };
 
   return (
-    <div>
-      <Row className="d-flex justify-content pb-4 pt-2">
-        <Col className="d-flex justify-content pb-4 pt-2">
-          <h1>Administrar productos</h1>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
-          <Button onClick={addProductHandler}>Añadir producto</Button>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-3 py-2">
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Volver al menu
-          </Button>
-        </Col>
-      </Row>
-
+    <div className="d-flex flex-column align-items-center justify-content-center h-100  p-4">
       <ShopFilter
         typeSelected={typeSelected}
         setTypeSelected={setTypeSelected}
@@ -84,7 +63,6 @@ const ManageProducts = () => {
         products={products}
         setProductsFiltered={setProductsFiltered}
       />
-
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
           ¡No hay productos con dichos filtros!
@@ -95,7 +73,39 @@ const ManageProducts = () => {
           deleteProductHandler={deleteProductHandler}
         />
       )}
+
+      <div className="d-flex mt-3">
+        <button className="m-2 btn btn-outline-dark" onClick={addProductHandler}>Añadir producto</button>
+        <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button>
+      </div>
     </div>
+    // <div>
+    //   <ShopFilter
+    //     typeSelected={typeSelected}
+    //     setTypeSelected={setTypeSelected}
+    //     colorSelected={colorSelected}
+    //     setColorSelected={setColorSelected}
+    //     sizeSelected={sizeSelected}
+    //     setSizeSelected={setSizeSelected}
+    //     products={products}
+    //     setProductsFiltered={setProductsFiltered}
+    //   />
+    //   {productsFiltered.length === 0 ? (
+    //     <h3 className="d-flex justify-content-center mx-auto px-4">
+    //       ¡No hay productos con dichos filtros!
+    //     </h3>
+    //   ) : (
+    //     <ListProducts
+    //       products={productsFiltered}
+    //       deleteProductHandler={deleteProductHandler}
+    //     />
+    //   )}
+
+    //   <div className="d-flex mt-3">
+    //     <button className="m-2 btn btn-outline-dark" onClick={addProductHandler}>Añadir producto</button>
+    //     <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button>
+    //   </div>
+    // </div>
   );
 };
 

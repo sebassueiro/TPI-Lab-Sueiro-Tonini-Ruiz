@@ -13,7 +13,6 @@ const Shop = ({ products }) => {
           <p>Disponibilidad: {product.amount > 0 ? "Si" : "No hay"}</p>
         </div>
       ))}
-      ;
     </div>
   );
 };

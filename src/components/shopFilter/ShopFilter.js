@@ -1,4 +1,3 @@
-import { Button, Col, Row } from "react-bootstrap";
 
 const ShopFilter = ({
   typeSelected,
@@ -57,49 +56,44 @@ const ShopFilter = ({
   };
 
   return (
-    <Row>
-      <Col className="col-3">
-        <label>Selecione el tipo de prendas: </label>
-        <select onChange={typeHandler} value={typeSelected}>
-          <option value="Todos">Todas las prendas</option>
-          <option value="Remera">Remeras</option>
-          <option value="Buzo">Buzos</option>
-          <option value="Pantalon">Pantalones</option>
-          <option value="Campera">Camperas</option>
-        </select>
-      </Col>
-
-      <Col>
-        <label>Seleccione un color: </label>
-        <select onChange={colorHandler} value={colorSelected}>
-          <option value="Todos">Todos los colores</option>
-          <option value="Azul">Azul</option>
-          <option value="Rojo">Rojo</option>
-          <option value="Amarillo">Amarillo</option>
-          <option value="Naranja">Naranja</option>
-          <option value="Verde">Verde</option>
-          <option value="Blanco">Blanco</option>
-          <option value="Negro">Negro</option>
-          <option value="Gris">Gris</option>
-        </select>
-      </Col>
-
-      <Col>
-        <label>Seleccione un talle: </label>
-        <select onChange={sizeHandler} value={sizeSelected}>
-          <option value="Todos">Todos los talles</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </select>
-      </Col>
-
-      <Col>
-        <Button onClick={selectHandler}>Filtrar</Button>
-      </Col>
-    </Row>
+    <div className="w-100">
+      <div className="border rounded p-3">
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center">
+          <label >Selecione el tipo de prendas: </label>
+          <select className="me-4 form-select" style={{ width: "180px"}} onChange={typeHandler} value={typeSelected}>
+            <option value="Todos">Todas las prendas</option>
+            <option value="Remera">Remeras</option>
+            <option value="Buzo">Buzos</option>
+            <option value="Pantalon">Pantalones</option>
+            <option value="Campera">Camperas</option>
+          </select>
+          <label >Seleccione un color: </label>
+          <select className="me-4 form-select" style={{ width: "170px"}} onChange={colorHandler} value={colorSelected}>
+            <option value="Todos">Todos los colores</option>
+            <option value="Azul">Azul</option>
+            <option value="Rojo">Rojo</option>
+            <option value="Amarillo">Amarillo</option>
+            <option value="Naranja">Naranja</option>
+            <option value="Verde">Verde</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Negro">Negro</option>
+            <option value="Gris">Gris</option>
+          </select>
+          <label >Seleccione un talle:</label>
+          <select className="me-4 form-select" style={{ width: "150px"}} onChange={sizeHandler} value={sizeSelected}>
+            <option value="Todos">Todos los talles</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+          <button className="ms-5 btn btn-outline-dark" onClick={selectHandler}>Filtrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
