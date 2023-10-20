@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ListProducts from "../listProducts/ListProducts";
 import { useNavigate } from "react-router";
 import ShopFilter from "../shopFilter/ShopFilter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageProducts = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
@@ -28,14 +30,12 @@ const ManageProducts = () => {
   }, []);
 
   const deleteProductHandler = (id) => {
-    alert(id);
-
     fetch(`http://localhost:8000/products/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
-          alert(`Producto con ID ${id} eliminado con éxito.`);
+          toast.success(`Producto con ID ${id} eliminado con éxito.`);
           const updatedProducts = products.filter(
             (product) => product.id !== id
           );
@@ -73,10 +73,34 @@ const ManageProducts = () => {
           deleteProductHandler={deleteProductHandler}
         />
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+      />
 
       <div className="d-flex mt-3">
-        <button className="m-2 btn btn-outline-dark" onClick={addProductHandler}>Añadir producto</button>
-        <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button>
+        <button
+          className="m-2 btn btn-outline-dark"
+          onClick={addProductHandler}
+        >
+          Añadir producto
+        </button>
+        <button
+          className="m-2 btn btn-outline-dark"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Volver al menu
+        </button>
       </div>
     </div>
     // <div>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import ListUsers from "../listUsers/ListUsers";
 import FilteredUsers from "../filteredUsers/FilteredUsers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageUser = () => {
   const [users, setUsers] = useState([]);
@@ -25,17 +27,16 @@ const ManageUser = () => {
   }, []);
 
   const deleteUserHandler = (id) => {
-    alert(id);
-
     fetch(`http://localhost:8000/users/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.ok) {
-          console.log(`Usuario con ID ${id} eliminado con éxito.`);
+          toast.success(`Usuario con ID ${id} eliminado con éxito.`);
           const updatedUsers = users.filter((user) => user.id !== id);
           setUsersFiltered(updatedUsers);
         } else {
+          toast.error("No se pudo eliminar el usuario.");
           throw new Error("No se pudo eliminar el usuario.");
         }
       })
@@ -55,13 +56,37 @@ const ManageUser = () => {
         setUsersFiltered={setUsersFiltered}
       />
 
-      <ListUsers users={usersFiltered} deleteUserHandler={deleteUserHandler} /> 
+      <ListUsers users={usersFiltered} deleteUserHandler={deleteUserHandler} />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+      />
 
       <div className="d-flex mt-3">
-        <button className="m-2 btn btn-outline-dark" onClick={createAdminHandler} >Crear Admin</button>
-        <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button> 
+        <button
+          className="m-2 btn btn-outline-dark"
+          onClick={createAdminHandler}
+        >
+          Crear Admin
+        </button>
+        <button
+          className="m-2 btn btn-outline-dark"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Volver al menu
+        </button>
       </div>
-    </div> 
+    </div>
   );
 };
 

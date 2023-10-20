@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import './ListUser.css'
+import { useState } from "react";
+import "./ListUser.css";
 
 const ListUsers = ({ users, deleteUserHandler }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +18,7 @@ const ListUsers = ({ users, deleteUserHandler }) => {
         </thead>
         {users.map((user) => (
           <tbody>
-            <tr >
+            <tr>
               <td>{user.id}</td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
@@ -26,12 +26,19 @@ const ListUsers = ({ users, deleteUserHandler }) => {
               <td>{user.password}</td>
               <td>{user.userType}</td>
               <td>
-                <div className="button-container" >
-                  <button id='tacho' className={`button ${isHovered ? 'hovered' : ''}`}
-                   onMouseEnter={() => setIsHovered(true)}
-                   onMouseLeave={() => setIsHovered(false)}><span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
+                <div className="button-container">
+                  <button
+                    id="tacho"
+                    className={`button ${isHovered ? "hovered" : ""}`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
                   </button>
-                  {isHovered && <div className="hover-text">Deseas eliminar?</div>}
+
+                  {isHovered && (
+                    <div className="hover-text">Deseas eliminar?</div>
+                  )}
                 </div>
               </td>
             </tr>
