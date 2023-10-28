@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,8 +11,11 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
+  const typeUser = "client";
   const navigate = useNavigate();
   const translate = useTranslation();
+
+  const { handleLogin } = useContext(AuthenticationContext);
 
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -116,7 +120,7 @@ const SignUp = () => {
             lastName: newUser.lastName,
             email: newUser.email,
             password: newUser.password,
-            userType: "client",
+            userType: typeUser,
           }),
         })
           .then((response) => {
@@ -136,6 +140,7 @@ const SignUp = () => {
         setLastName("");
         setEmail("");
         setPassword("");
+        handleLogin(email, typeUser);
         navigate("/");
       }
     }

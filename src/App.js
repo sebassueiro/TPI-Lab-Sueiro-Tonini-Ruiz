@@ -11,6 +11,7 @@ import AddProduct from "./components/addProduct/AddProduct";
 import CreateAdmin from "./components/createAdmin/CreateAdmin";
 import ManageUser from "./components/manageUser/ManageUser";
 import ManageProducts from "./components/manageProducts/ManageProducts";
+import Protected from "./components/protected/Protected";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -32,16 +33,35 @@ const App = () => {
     },
     {
       path: "/addProduct",
-      element: <AddProduct />,
+      element: (
+        <Protected>
+          <AddProduct />
+        </Protected>
+      ),
     },
-    { path: "/manageProducts", element: <ManageProducts /> },
+    {
+      path: "/manageProducts",
+      element: (
+        <Protected>
+          <ManageProducts />
+        </Protected>
+      ),
+    },
     {
       path: "/manageUser",
-      element: <ManageUser />,
+      element: (
+        <Protected>
+          <ManageUser />
+        </Protected>
+      ),
     },
     {
       path: "/createAdmin",
-      element: <CreateAdmin />,
+      element: (
+        <Protected>
+          <CreateAdmin />
+        </Protected>
+      ),
     },
     {
       path: "*",
