@@ -13,6 +13,7 @@ const ManageProducts = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [productsFiltered, setProductsFiltered] = useState([]);
+  const [editProduct, setEditProduct] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:8000/products", {
@@ -51,8 +52,97 @@ const ManageProducts = () => {
     navigate("/addProduct");
   };
 
+  const handleEditProduct = (product) => {
+    setEditProduct(product);
+  };
+
+  const handleUpdateProduct = () => {
+    if (editProduct) {
+      const updatedProduct = { ...editProduct };
+
+      fetch(`http://localhost:8000/products/${updatedProduct.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedProduct),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("No se pudo actualizar el producto.");
+          }
+        })
+        .then((updatedProductData) => {
+          const updatedProducts = products.map((product) =>
+            product.id === updatedProductData.id ? updatedProductData : product
+          );
+
+          setProducts(updatedProducts);
+          setProductsFiltered(updatedProducts);
+
+          setEditProduct(null);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
   return (
     <div className="d-flex flex-column align-items-center justify-content-center h-100  p-4">
+      {editProduct && (
+        <div>
+          <h3>
+            Editar {editProduct.type} id: {editProduct.id}
+          </h3>
+          <form>
+            <label>
+              Precio:
+              <input
+                type="number"
+                value={editProduct.price}
+                onChange={(event) => {
+                  const inputValue = parseInt(event.target.value);
+                  if (inputValue <= 0) {
+                    alert("Ingrese una cantidad mayor a cero");
+                  } else {
+                    setEditProduct({
+                      ...editProduct,
+                      price: inputValue,
+                    });
+                  }
+                }}
+              />
+            </label>
+            <label>
+              Cantidad:
+              <input
+                type="number"
+                value={editProduct.amount}
+                onChange={(event) => {
+                  const inputValue = parseInt(event.target.value);
+                  if (inputValue < 0) {
+                    alert("Ingrese una cantidad mayor o igual a cero");
+                  } else {
+                    setEditProduct({
+                      ...editProduct,
+                      amount: inputValue,
+                    });
+                  }
+                }}
+              />
+            </label>
+
+            <button
+              onClick={() => {
+                handleUpdateProduct(editProduct);
+              }}
+            >
+              Guardar Cambios
+            </button>
+          </form>
+        </div>
+      )}
       <ShopFilter
         typeSelected={typeSelected}
         setTypeSelected={setTypeSelected}
@@ -71,6 +161,7 @@ const ManageProducts = () => {
         <ListProducts
           products={productsFiltered}
           deleteProductHandler={deleteProductHandler}
+          handleEditProduct={handleEditProduct}
         />
       )}
       <ToastContainer

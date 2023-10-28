@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./ListProducts.css";
 
-const ListProducts = ({ products, deleteProductHandler }) => {
+const ListProducts = ({
+  products,
+  deleteProductHandler,
+  handleEditProduct,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="d-flex  flex-column align-items-center w-75">
@@ -27,6 +31,16 @@ const ListProducts = ({ products, deleteProductHandler }) => {
               <td>{product.color}</td>
               <td>{product.size}</td>
               <td>{product.amount}</td>
+              <td>
+                <div className="button-container">
+                  <button>
+                    <span onClick={() => handleEditProduct(product)}>✏️</span>
+                  </button>
+                  {isHovered && (
+                    <div className="hover-text">Deseas editar?</div>
+                  )}
+                </div>
+              </td>
               <td>
                 <div className="button-container">
                   <button
