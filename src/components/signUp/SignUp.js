@@ -90,46 +90,52 @@ const SignUp = () => {
         passwordRef.current.style.outline = "none";
       }
     } else {
-      const newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-      };
-      const newUserId = users[users.length - 1].id + 1;
+      if (users.some((user) => user.email === email)) {
+        toast.error("El Email ya está en uso");
+        emailRef.current.style.borderColor = "red";
+        emailRef.current.style.outline = "none";
+      } else {
+        const newUser = {
+          firstName,
+          lastName,
+          email,
+          password,
+        };
+        const newUserId = users[users.length - 1].id + 1;
 
-      fetch("http://localhost:8000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          id: newUserId,
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          email: newUser.email,
-          password: newUser.password,
-          userType: "client",
-        }),
-      })
-        .then((response) => {
-          if (response.ok) return response.json();
-          else {
-            throw new Error("The response had some errors");
-          }
+        fetch("http://localhost:8000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            id: newUserId,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+            password: newUser.password,
+            userType: "client",
+          }),
         })
-        .then(() => {
-          const newUserArray = [{ ...newUser, id: newUserId }, ...users];
-          setUsers(newUserArray);
-        })
-        .catch((error) => console.log(error));
+          .then((response) => {
+            if (response.ok) return response.json();
+            else {
+              throw new Error("The response had some errors");
+            }
+          })
+          .then(() => {
+            const newUserArray = [{ ...newUser, id: newUserId }, ...users];
+            setUsers(newUserArray);
+          })
+          .catch((error) => console.log(error));
 
-      //onSaveUser(newUser);
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      navigate("/");
+        //onSaveUser(newUser);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
     }
   };
   return (
