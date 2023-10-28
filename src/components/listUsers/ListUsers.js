@@ -5,48 +5,56 @@ const ListUsers = ({ users, deleteUserHandler }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className="d-flex  flex-column align-items-center w-100">
-      <table className="table table-hover mx-auto text-center ">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Contraseña</th>
-            <th>Tipo de usuario</th>
-          </tr>
-        </thead>
-        {users.map((user) => (
-          <tbody>
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.email}</td>
-              <td>{user.password}</td>
-              <td>{user.userType}</td>
-              <td>
-                <div className="button-container">
-                  {user.userType !== "superAdmin" && (
-                    <button
-                      id="tacho"
-                      className={`button ${isHovered ? "hovered" : ""}`}
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    >
-                      <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
-                    </button>
-                  )}
-
-                  {isHovered && (
-                    <div className="hover-text">Deseas eliminar?</div>
-                  )}
-                </div>
-              </td>
+      {users.length === 0 ? (
+        <h3 className="d-flex justify-content-center mx-auto px-4">
+          ¡No hay usuarios con dicho filtro!
+        </h3>
+      ) : (
+        <table className="table table-hover mx-auto text-center ">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Contraseña</th>
+              <th>Tipo de usuario</th>
             </tr>
-          </tbody>
-        ))}
-      </table>
+          </thead>
+          {users.map((user) => (
+            <tbody>
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+                <td>{user.userType}</td>
+                <td>
+                  <div className="button-container">
+                    {user.userType !== "superAdmin" && (
+                      <button
+                        id="tacho"
+                        className={`button ${isHovered ? "hovered" : ""}`}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                      >
+                        <span onClick={() => deleteUserHandler(user.id)}>
+                          🗑️
+                        </span>
+                      </button>
+                    )}
+
+                    {isHovered && (
+                      <div className="hover-text">Deseas eliminar?</div>
+                    )}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      )}
     </div>
   );
 };
