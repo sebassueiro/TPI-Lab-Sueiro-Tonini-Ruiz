@@ -71,25 +71,21 @@ const SignUp = () => {
       validateEmail(email) === false ||
       password === ""
     ) {
-      toast.error("Complete correctamente los campos que esten en rojo");
+      toast.error("Complete correctamente los campos resaltados en rojo");
       if (firstName === "") {
-        firstNameRef.current.focus();
         firstNameRef.current.style.borderColor = "red";
         firstNameRef.current.style.outline = "none";
       }
       if (lastName === "") {
-        lastNameRef.current.focus();
         lastNameRef.current.style.borderColor = "red";
         lastNameRef.current.style.outline = "none";
       }
       if (validateEmail(email) === false || email === "") {
-        emailRef.current.focus();
         emailRef.current.style.borderColor = "red";
         emailRef.current.style.outline = "none";
         // alert("Email invalido");
       }
       if (password === "") {
-        passwordRef.current.focus();
         passwordRef.current.style.borderColor = "red";
         passwordRef.current.style.outline = "none";
       }

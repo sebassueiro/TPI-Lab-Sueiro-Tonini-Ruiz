@@ -18,7 +18,7 @@ const ListUsers = ({ users, deleteUserHandler }) => {
         </thead>
         {users.map((user) => (
           <tbody>
-            <tr>
+            <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.firstName}</td>
               <td>{user.lastName}</td>
@@ -27,14 +27,16 @@ const ListUsers = ({ users, deleteUserHandler }) => {
               <td>{user.userType}</td>
               <td>
                 <div className="button-container">
-                  <button
-                    id="tacho"
-                    className={`button ${isHovered ? "hovered" : ""}`}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                  >
-                    <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
-                  </button>
+                  {user.userType !== "superAdmin" && (
+                    <button
+                      id="tacho"
+                      className={`button ${isHovered ? "hovered" : ""}`}
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <span onClick={() => deleteUserHandler(user.id)}>🗑️</span>
+                    </button>
+                  )}
 
                   {isHovered && (
                     <div className="hover-text">Deseas eliminar?</div>

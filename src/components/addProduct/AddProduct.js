@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProduct = () => {
+  const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [color, setColor] = useState("");
@@ -11,24 +14,59 @@ const AddProduct = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
+  const nameRef = useRef(null);
+  const typeRef = useRef(null);
+  const priceRef = useRef(null);
+  const colorRef = useRef(null);
+  const sizeRef = useRef(null);
+  const amountRef = useRef(null);
+
+  const changeNameHandler = (event) => {
+    if (nameRef.current.value !== "") {
+      nameRef.current.style.borderColor = "";
+      nameRef.current.style.outline = "";
+    }
+    setName(event.target.value);
+  };
+
   const changeTypeHandler = (event) => {
+    if (typeRef.current.value !== "") {
+      typeRef.current.style.borderColor = "";
+      typeRef.current.style.outline = "";
+    }
     setType(event.target.value);
   };
 
   const changePriceHandler = (event) => {
-    setPrice(event.target.value);
+    if (priceRef.current.value !== "") {
+      priceRef.current.style.borderColor = "";
+      priceRef.current.style.outline = "";
+    }
+    setPrice(parseInt(event.target.value));
   };
 
   const changeColorHandler = (event) => {
+    if (colorRef.current.value !== "") {
+      colorRef.current.style.borderColor = "";
+      colorRef.current.style.outline = "";
+    }
     setColor(event.target.value);
   };
 
   const changeSizeHandler = (event) => {
+    if (sizeRef.current.value !== "") {
+      sizeRef.current.style.borderColor = "";
+      sizeRef.current.style.outline = "";
+    }
     setSize(event.target.value);
   };
 
   const changeAmountHandler = (event) => {
-    setAmount(event.target.value);
+    if (amountRef.current.value !== "") {
+      amountRef.current.style.borderColor = "";
+      amountRef.current.style.outline = "";
+    }
+    setAmount(parseInt(event.target.value));
   };
 
   useEffect(() => {
@@ -46,15 +84,43 @@ const AddProduct = () => {
 
   const addProductsHandler = () => {
     if (
+      name === "" ||
       type === "" ||
       price === "" ||
+      price === 0 ||
       color === "" ||
       size === "" ||
-      amount === ""
+      amount === "" ||
+      amount === 0
     ) {
-      alert("Complete todos los campos");
+      toast.error("Complete correctamente los campos resaltados en rojo");
+      if (name === "") {
+        nameRef.current.style.borderColor = "red";
+        nameRef.current.style.outline = "none";
+      }
+      if (type === "") {
+        typeRef.current.style.borderColor = "red";
+        typeRef.current.style.outline = "none";
+      }
+      if (price === "" || price === 0) {
+        priceRef.current.style.borderColor = "red";
+        priceRef.current.style.outline = "none";
+      }
+      if (color === "") {
+        colorRef.current.style.borderColor = "red";
+        colorRef.current.style.outline = "none";
+      }
+      if (size === "") {
+        sizeRef.current.style.borderColor = "red";
+        sizeRef.current.style.outline = "none";
+      }
+      if (amount === "" || amount === 0) {
+        amountRef.current.style.borderColor = "red";
+        amountRef.current.style.outline = "none";
+      }
     } else {
       const newProduct = {
+        name,
         type,
         price,
         color,
@@ -70,6 +136,7 @@ const AddProduct = () => {
         },
         body: JSON.stringify({
           id: newProductId,
+          name: newProduct.name,
           type: newProduct.type,
           price: newProduct.price,
           color: newProduct.color,
@@ -92,13 +159,14 @@ const AddProduct = () => {
         })
         .catch((error) => console.log(error));
 
+      setName("");
       setType("");
       setPrice("");
       setColor("");
       setSize("");
       setAmount("");
 
-      alert("Producto añadido con exito!");
+      toast.success("Producto añadido con exito!");
     }
   };
 
@@ -121,8 +189,16 @@ const AddProduct = () => {
       </Row>
       <form>
         <Col className="d-flex justify-content-center mx-3 py-4">
+          <label>Nombre de la prenda:</label>
+          <input
+            type="text"
+            onChange={changeNameHandler}
+            placeholder="Nombre"
+            ref={nameRef}
+          />
+
           <label>Tipo de prenda:</label>
-          <select onChange={changeTypeHandler} value={type}>
+          <select onChange={changeTypeHandler} value={type} ref={typeRef}>
             <option value="">Selecione el tipo de prenda</option>
             <option value="Remera">Remera</option>
             <option value="Buzo">Buzo</option>
@@ -130,11 +206,16 @@ const AddProduct = () => {
             <option value="Campera">Campera</option>
           </select>
 
-          <label>Precio:</label>
-          <input type="number" onChange={changePriceHandler} placeholder="Ingrese Precio unitario"/>
+          <label>Precio unitario:</label>
+          <input
+            type="number"
+            onChange={changePriceHandler}
+            placeholder="Ingrese Precio unitario"
+            ref={priceRef}
+          />
 
           <label>Color:</label>
-          <select onChange={changeColorHandler} value={color}>
+          <select onChange={changeColorHandler} value={color} ref={colorRef}>
             <option value="">Seleccione un color</option>
             <option value="Azul">Azul</option>
             <option value="Rojo">Rojo</option>
@@ -147,7 +228,7 @@ const AddProduct = () => {
           </select>
 
           <label>Talle:</label>
-          <select onChange={changeSizeHandler} value={size}>
+          <select onChange={changeSizeHandler} value={size} ref={sizeRef}>
             <option value="">Seleccione un talle</option>
             <option value="S">S</option>
             <option value="M">M</option>
@@ -157,10 +238,27 @@ const AddProduct = () => {
           </select>
 
           <label>Cantidad de la prenda:</label>
-          <input type="number" onChange={changeAmountHandler} />
+          <input
+            type="number"
+            onChange={changeAmountHandler}
+            placeholder="Ingrese cantidad total"
+            ref={amountRef}
+          />
         </Col>
         <Col className="d-flex justify-content-center mx-3 py-4">
           <Button onClick={addProductsHandler}>Añadir producto</Button>
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable={false}
+            pauseOnHover
+            theme="light"
+          />
         </Col>
       </form>
     </div>
