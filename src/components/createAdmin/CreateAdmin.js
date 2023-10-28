@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const CreateAdmin = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,12 +10,14 @@ const CreateAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
 
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const navigate = useNavigate();
+  const translate = useTranslation();
 
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -141,13 +144,15 @@ const CreateAdmin = () => {
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-5 pb-2 rounded-5 text-secondary shadow">
-        <div className="text-center fs-1 fw-bold">Crea el administrador</div>
+        <div className="text-center fs-1 fw-bold">
+          {translate("create_admin")}
+        </div>
         <div className="input-group mt-4">
           <input
             onChange={changeFirstNameHandler}
             className="form-control bg-light"
             type="text"
-            placeholder="Nombre"
+            placeholder={translate("name")}
             ref={firstNameRef}
           />
         </div>
@@ -156,7 +161,7 @@ const CreateAdmin = () => {
             onChange={changeLastNameHandler}
             className="form-control bg-light"
             type="text"
-            placeholder="Apellido"
+            placeholder={translate("lastname")}
             ref={lastNameRef}
           />
         </div>
@@ -174,13 +179,13 @@ const CreateAdmin = () => {
             onChange={changePasswordHandler}
             className="form-control bg-light"
             type="Password"
-            placeholder="Contraseña"
+            placeholder={translate("password")}
             ref={passwordRef}
           />
         </div>
         <div className="d-grid gap-2 col-12 mx-auto mt-4">
           <button onClick={addUserHandler} className=" btn btn-outline-dark ">
-            Registrar
+            {translate("register")}
           </button>
           <ToastContainer
             position="top-center"
@@ -202,7 +207,7 @@ const CreateAdmin = () => {
             }}
             className="btn btn-outline-dark"
           >
-            Volver a administrar usuario
+            {translate("back_to_admin_management")}
           </button>
         </p>
       </div>

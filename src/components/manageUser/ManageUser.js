@@ -4,12 +4,15 @@ import ListUsers from "../listUsers/ListUsers";
 import FilteredUsers from "../filteredUsers/FilteredUsers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ManageUser = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
   const [typeUserSelected, setTypeUserSelected] = useState("Todos");
   const [usersFiltered, setUsersFiltered] = useState([]);
+
+  const navigate = useNavigate();
+  const translate = useTranslation();
 
   useEffect(() => {
     fetch("http://localhost:8000/users", {
@@ -32,12 +35,12 @@ const ManageUser = () => {
     })
       .then((response) => {
         if (response.ok) {
-          toast.success(`Usuario con ID ${id} eliminado con éxito.`);
+          toast.success(translate("alert_delete_user"));
           const updatedUsers = users.filter((user) => user.id !== id);
           setUsersFiltered(updatedUsers);
         } else {
-          toast.error("No se pudo eliminar el usuario.");
-          throw new Error("No se pudo eliminar el usuario.");
+          toast.error(translate("alert_delete_user_error"));
+          throw new Error(translate("alert_delete_user_error"));
         }
       })
       .catch((error) => console.error(error));
@@ -75,7 +78,7 @@ const ManageUser = () => {
           className="m-2 btn btn-outline-dark"
           onClick={createAdminHandler}
         >
-          Crear Admin
+          {translate("create_admin")}
         </button>
         <button
           className="m-2 btn btn-outline-dark"
@@ -83,7 +86,7 @@ const ManageUser = () => {
             navigate("/");
           }}
         >
-          Volver al menu
+          {translate("back_to_shop")}
         </button>
       </div>
     </div>

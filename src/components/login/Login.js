@@ -6,14 +6,19 @@ import password_icon from "../images/password-icon.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
+//import { TranslateContext } from "../../services/translationContext/translation.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const navigate = useNavigate();
+  const translate = useTranslation();
 
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -37,7 +42,7 @@ const Login = () => {
 
   const loginButtonHandler = () => {
     if (email === "" || validateEmail(email) === false || password === "") {
-      toast.error("Complete correctamente los campos resaltados en rojo");
+      toast.error(translate("alert_empty_fields"));
       if (email === "" || validateEmail(email) === false) {
         emailRef.current.style.borderColor = "red";
         emailRef.current.style.outline = "none";
@@ -53,11 +58,14 @@ const Login = () => {
 
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
+      <ComboLanguage />
       <div className="bg-white p-5 pb-3 rounded-5 text-secondary shadow">
         <div className="d-flex justify-content-center">
           <img id="login-icon" src={login_icon} alt="login-icon" />
         </div>
-        <div className="text-center fs-1 fw-bold">Ingresa a tu cuenta</div>
+        <div className="text-center fs-1 fw-bold">
+          {translate("log_in_account")}
+        </div>
         <div className="input-group mt-4">
           <div className="input-group-text bg-dark">
             <img id="username-icon" src={username_icon} alt="username-icon" />
@@ -77,7 +85,7 @@ const Login = () => {
           <input
             class="form-control bg-light"
             type="password"
-            placeholder="Contraseña"
+            placeholder={translate("password")}
             ref={passwordRef}
             onChange={changePasswordHandler}
           />
@@ -88,7 +96,7 @@ const Login = () => {
               className=" btn btn-outline-dark"
               onClick={loginButtonHandler}
             >
-              Iniciar sesion
+              {translate("login")}
             </button>
             <ToastContainer
               position="top-center"
@@ -105,12 +113,12 @@ const Login = () => {
           </div>
         </div>
         <p class="d-flex justify-content-center mt-4">
-          ¿No tienes cuenta?
+          {translate("dont_account")}
           <Link
             to="/signup"
             className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
-            Crea tu cuenta!
+            {translate("create_account")}
           </Link>
         </p>
         <p class="d-flex justify-content-center mt-4">
@@ -118,7 +126,7 @@ const Login = () => {
             to="/"
             className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
-            Volver a la tienda
+            {translate("back_to_shop")}
           </Link>
         </p>
       </div>

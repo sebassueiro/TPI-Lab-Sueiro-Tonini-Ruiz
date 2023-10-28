@@ -1,24 +1,26 @@
 import { useState } from "react";
 import "./ListUser.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ListUsers = ({ users, deleteUserHandler }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const translate = useTranslation();
   return (
     <div className="d-flex  flex-column align-items-center w-100">
       {users.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
-          ¡No hay usuarios con dicho filtro!
+          {translate("no_user_filter")}
         </h3>
       ) : (
         <table className="table table-hover mx-auto text-center ">
           <thead>
             <tr>
               <th>Id</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
+              <th>{translate("name")}</th>
+              <th>{translate("lastname")}</th>
               <th>Email</th>
-              <th>Contraseña</th>
-              <th>Tipo de usuario</th>
+              <th>{translate("password")}</th>
+              <th>{translate("type_of_user")}</th>
             </tr>
           </thead>
           {users.map((user) => (
@@ -46,7 +48,9 @@ const ListUsers = ({ users, deleteUserHandler }) => {
                     )}
 
                     {isHovered && (
-                      <div className="hover-text">Deseas eliminar?</div>
+                      <div className="hover-text">
+                        {translate("wish_delete")}
+                      </div>
                     )}
                   </div>
                 </td>

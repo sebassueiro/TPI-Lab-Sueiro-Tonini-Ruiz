@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ListProducts.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ListProducts = ({
   products,
@@ -7,18 +8,20 @@ const ListProducts = ({
   handleEditProduct,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const translate = useTranslation();
   return (
     <div className="d-flex  flex-column align-items-center w-75">
       <table className="table table-hover mx-auto text-center">
         <thead>
           <tr>
             <th>Id</th>
-            <th>Nombre</th>
-            <th>Tipo de prenda</th>
-            <th>Precio</th>
-            <th>Color</th>
-            <th>Talle</th>
-            <th>Cantidad</th>
+            <th>{translate("name")}</th>
+            <th>{translate("type_of_garments")}</th>
+            <th>{translate("price")}</th>
+            <th>{translate("color")}</th>
+            <th>{translate("size")}</th>
+            <th>{translate("amount")}</th>
           </tr>
         </thead>
         {products.map((product) => (
@@ -37,7 +40,7 @@ const ListProducts = ({
                     <span onClick={() => handleEditProduct(product)}>✏️</span>
                   </button>
                   {isHovered && (
-                    <div className="hover-text">Deseas editar?</div>
+                    <div className="hover-text">{translate("wish_edit")}</div>
                   )}
                 </div>
               </td>
@@ -54,7 +57,7 @@ const ListProducts = ({
                     </span>
                   </button>
                   {isHovered && (
-                    <div className="hover-text">Deseas eliminar?</div>
+                    <div className="hover-text">{translate("wish_delete")}</div>
                   )}
                 </div>
               </td>

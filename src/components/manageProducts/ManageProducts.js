@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import ShopFilter from "../shopFilter/ShopFilter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ManageProducts = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
@@ -11,9 +12,11 @@ const ManageProducts = () => {
   const [sizeSelected, setSizeSelected] = useState("Todos");
 
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [editProduct, setEditProduct] = useState(null);
+
+  const navigate = useNavigate();
+  const translate = useTranslation();
 
   useEffect(() => {
     fetch("http://localhost:8000/products", {
@@ -93,11 +96,11 @@ const ManageProducts = () => {
       {editProduct && (
         <div>
           <h3>
-            Editar {editProduct.type} id: {editProduct.id}
+            {translate("edit")} {editProduct.type} id: {editProduct.id}
           </h3>
           <form>
             <label>
-              Precio:
+              {translate("price")}:
               <input
                 type="number"
                 value={editProduct.price}
@@ -115,7 +118,7 @@ const ManageProducts = () => {
               />
             </label>
             <label>
-              Cantidad:
+              {translate("amount")}:
               <input
                 type="number"
                 value={editProduct.amount}
@@ -138,7 +141,7 @@ const ManageProducts = () => {
                 handleUpdateProduct(editProduct);
               }}
             >
-              Guardar Cambios
+              {translate("save_changes")}
             </button>
           </form>
         </div>
@@ -155,7 +158,7 @@ const ManageProducts = () => {
       />
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
-          ¡No hay productos con dichos filtros!
+          {translate("no_products")}
         </h3>
       ) : (
         <ListProducts
@@ -182,7 +185,7 @@ const ManageProducts = () => {
           className="m-2 btn btn-outline-dark"
           onClick={addProductHandler}
         >
-          Añadir producto
+          {translate("add_product")}
         </button>
         <button
           className="m-2 btn btn-outline-dark"
@@ -190,37 +193,10 @@ const ManageProducts = () => {
             navigate("/");
           }}
         >
-          Volver al menu
+          {translate("back_to_shop")}
         </button>
       </div>
     </div>
-    // <div>
-    //   <ShopFilter
-    //     typeSelected={typeSelected}
-    //     setTypeSelected={setTypeSelected}
-    //     colorSelected={colorSelected}
-    //     setColorSelected={setColorSelected}
-    //     sizeSelected={sizeSelected}
-    //     setSizeSelected={setSizeSelected}
-    //     products={products}
-    //     setProductsFiltered={setProductsFiltered}
-    //   />
-    //   {productsFiltered.length === 0 ? (
-    //     <h3 className="d-flex justify-content-center mx-auto px-4">
-    //       ¡No hay productos con dichos filtros!
-    //     </h3>
-    //   ) : (
-    //     <ListProducts
-    //       products={productsFiltered}
-    //       deleteProductHandler={deleteProductHandler}
-    //     />
-    //   )}
-
-    //   <div className="d-flex mt-3">
-    //     <button className="m-2 btn btn-outline-dark" onClick={addProductHandler}>Añadir producto</button>
-    //     <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/");}}>Volver al menu</button>
-    //   </div>
-    // </div>
   );
 };
 
