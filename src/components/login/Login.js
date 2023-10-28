@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Login.css";
 import login_icon from "../images/login-icon.svg";
 import username_icon from "../images/username-icon.svg";
@@ -9,16 +9,33 @@ import "react-toastify/dist/ReactToastify.css";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
 //import { TranslateContext } from "../../services/translationContext/translation.context";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
+
+  const { handleLogin } = useContext(AuthenticationContext);
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
   const navigate = useNavigate();
   const translate = useTranslation();
+
+  useEffect(() => {
+    fetch("http://localhost:8000/users", {
+      headers: {
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((usersData) => {
+        setUsers(usersData);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const validateEmail = (email) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -40,6 +57,9 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
+  const userFilter = users.filter((user) => {
+    return user.email === email && user.password === password;
+  });
   const loginButtonHandler = () => {
     if (email === "" || validateEmail(email) === false || password === "") {
       toast.error(translate("alert_empty_fields"));
@@ -51,7 +71,13 @@ const Login = () => {
         passwordRef.current.style.borderColor = "red";
         passwordRef.current.style.outline = "none";
       }
+    }
+    if (userFilter.length === 0) {
+      toast.error("Usuario no encontrado");
     } else {
+      var userType = "";
+      userFilter.map((user) => (userType = user.userType));
+      handleLogin(email, userType);
       navigate("/");
     }
   };

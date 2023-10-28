@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ShopFilter from "../shopFilter/ShopFilter";
 import Shop from "../shop/Shop";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
 
 const MainPage = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
   const [colorSelected, setColorSelected] = useState("Todos");
   const [sizeSelected, setSizeSelected] = useState("Todos");
 
+  //const { userType } = useContext(AuthenticationContext);
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const userType = userData ? userData.userType : null;
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
+
+  const { handleLogout, user } = useContext(AuthenticationContext);
   const navigate = useNavigate();
   const translate = useTranslation();
 
@@ -47,30 +53,40 @@ const MainPage = () => {
     <div>
       <Row>
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button
-            className="m-2 btn btn-outline-dark"
-            onClick={manageProductHandler}
-          >
-            {translate("administer_products")}
-          </button>
+          {(userType === "admin" || userType === "superAdmin") && (
+            <button
+              className="m-2 btn btn-outline-dark"
+              onClick={manageProductHandler}
+            >
+              {translate("administer_products")}
+            </button>
+          )}
         </Col>
         <Col>
           <ComboLanguage />
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button
-            className="m-2 btn btn-outline-dark"
-            onClick={manageUserHandler}
-          >
-            {translate("administer_users")}
-          </button>
+          {userType === "superAdmin" && (
+            <button
+              className="m-2 btn btn-outline-dark"
+              onClick={manageUserHandler}
+            >
+              {translate("administer_users")}
+            </button>
+          )}
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>
-            {translate("login")}
-          </button>
+          {!user ? (
+            <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>
+              {translate("login")}
+            </button>
+          ) : (
+            <button className="m-2 btn btn-outline-dark" onClick={handleLogout}>
+              Cerrar sesion
+            </button>
+          )}
         </Col>
       </Row>
 
@@ -84,7 +100,6 @@ const MainPage = () => {
         products={products}
         setProductsFiltered={setProductsFiltered}
       />
-
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
           {translate("no_products")}
