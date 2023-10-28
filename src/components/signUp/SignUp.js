@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +11,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const translate = useTranslation();
 
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -71,7 +73,7 @@ const SignUp = () => {
       validateEmail(email) === false ||
       password === ""
     ) {
-      toast.error("Complete correctamente los campos resaltados en rojo");
+      toast.error(translate("alert_empty_fields"));
       if (firstName === "") {
         firstNameRef.current.style.borderColor = "red";
         firstNameRef.current.style.outline = "none";
@@ -91,7 +93,7 @@ const SignUp = () => {
       }
     } else {
       if (users.some((user) => user.email === email)) {
-        toast.error("El Email ya está en uso");
+        toast.error(translate("email_exist"));
         emailRef.current.style.borderColor = "red";
         emailRef.current.style.outline = "none";
       } else {
@@ -141,13 +143,15 @@ const SignUp = () => {
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-5 pb-2 rounded-5 text-secondary shadow">
-        <div className="text-center fs-1 fw-bold">Crea tu cuenta</div>
+        <div className="text-center fs-1 fw-bold">
+          {translate("create_account")}
+        </div>
         <div className="input-group mt-4">
           <input
             onChange={changeFirstNameHandler}
             className="form-control bg-light"
             type="text"
-            placeholder="Nombre"
+            placeholder={translate("name")}
             ref={firstNameRef}
           />
         </div>
@@ -156,7 +160,7 @@ const SignUp = () => {
             onChange={changeLastNameHandler}
             className="form-control bg-light"
             type="text"
-            placeholder="Apellido"
+            placeholder={translate("lastname")}
             ref={lastNameRef}
           />
         </div>
@@ -174,13 +178,13 @@ const SignUp = () => {
             onChange={changePasswordHandler}
             className="form-control bg-light"
             type="Password"
-            placeholder="Contraseña"
+            placeholder={translate("password")}
             ref={passwordRef}
           />
         </div>
         <div className="d-grid gap-2 col-12 mx-auto mt-4">
           <button onClick={addUserHandler} className=" btn btn-outline-dark ">
-            Registrar
+            {translate("register")}
           </button>
           <ToastContainer
             position="top-center"
@@ -196,12 +200,12 @@ const SignUp = () => {
           />
         </div>
         <p class="d-flex justify-content-center mt-4">
-          Iniciar sesion{" "}
+          {translate("login")}{" "}
           <Link
             to="/login"
             className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
-            Click aqui!
+            {translate("click_here")}
           </Link>
         </p>
         <p class="d-flex justify-content-center mt-4">
@@ -209,7 +213,7 @@ const SignUp = () => {
             to="/"
             className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
           >
-            Volver a la tienda
+            {translate("back_to_shop")}
           </Link>
         </p>
       </div>

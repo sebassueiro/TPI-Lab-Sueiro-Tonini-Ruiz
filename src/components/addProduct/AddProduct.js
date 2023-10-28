@@ -3,6 +3,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -13,6 +14,7 @@ const AddProduct = () => {
   const [amount, setAmount] = useState("");
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const translate = useTranslation();
 
   const nameRef = useRef(null);
   const typeRef = useRef(null);
@@ -93,7 +95,7 @@ const AddProduct = () => {
       amount === "" ||
       amount === 0
     ) {
-      toast.error("Complete correctamente los campos resaltados en rojo");
+      toast.error(translate("alert_empty_fields"));
       if (name === "") {
         nameRef.current.style.borderColor = "red";
         nameRef.current.style.outline = "none";
@@ -166,7 +168,7 @@ const AddProduct = () => {
       setSize("");
       setAmount("");
 
-      toast.success("Producto añadido con exito!");
+      toast.success(translate("alert_success"));
     }
   };
 
@@ -174,7 +176,7 @@ const AddProduct = () => {
     <div>
       <Row className="d-flex justify-content pb-4 pt-2">
         <Col className="d-flex justify-content pb-4 pt-2">
-          <h1>-Añadir productos-</h1>
+          <h1>{translate("add_product")}</h1>
         </Col>
 
         <Col className="d-flex justify-content-end mx-3 py-2">
@@ -183,13 +185,13 @@ const AddProduct = () => {
               navigate("/manageProducts");
             }}
           >
-            Volver a administrar productos
+            {translate("back_to_product_management")}
           </Button>
         </Col>
       </Row>
       <form>
         <Col className="d-flex justify-content-center mx-3 py-4">
-          <label>Nombre de la prenda:</label>
+          <label>{translate("name_garments")}</label>
           <input
             type="text"
             onChange={changeNameHandler}
@@ -197,39 +199,39 @@ const AddProduct = () => {
             ref={nameRef}
           />
 
-          <label>Tipo de prenda:</label>
+          <label>{translate("type_of_garments")}</label>
           <select onChange={changeTypeHandler} value={type} ref={typeRef}>
-            <option value="">Selecione el tipo de prenda</option>
-            <option value="Remera">Remera</option>
-            <option value="Buzo">Buzo</option>
-            <option value="Pantalon">Pantalon</option>
-            <option value="Campera">Campera</option>
+            <option value="">{translate("select_type_garments")}</option>
+            <option value="Remera">{translate("t-shirt")}</option>
+            <option value="Buzo">{translate("hoodie")}</option>
+            <option value="Pantalon">{translate("pants")}</option>
+            <option value="Campera">{translate("jackets")}</option>
           </select>
 
-          <label>Precio unitario:</label>
+          <label>{translate("unit_price")}</label>
           <input
             type="number"
             onChange={changePriceHandler}
-            placeholder="Ingrese Precio unitario"
+            placeholder={translate("price")}
             ref={priceRef}
           />
 
-          <label>Color:</label>
+          <label>{translate("color")}:</label>
           <select onChange={changeColorHandler} value={color} ref={colorRef}>
-            <option value="">Seleccione un color</option>
-            <option value="Azul">Azul</option>
-            <option value="Rojo">Rojo</option>
-            <option value="Amarillo">Amarillo</option>
-            <option value="Naranja">Naranja</option>
-            <option value="Verde">Verde</option>
-            <option value="Blanco">Blanco</option>
-            <option value="Negro">Negro</option>
-            <option value="Gris">Gris</option>
+            <option value="">{translate("select_color")}</option>
+            <option value="Azul">{translate("color_blue")}</option>
+            <option value="Rojo">{translate("color_red")}</option>
+            <option value="Amarillo">{translate("color_yellow")}</option>
+            <option value="Naranja">{translate("color_orange")}</option>
+            <option value="Verde">{translate("color_green")}</option>
+            <option value="Blanco">{translate("color_white")}</option>
+            <option value="Negro">{translate("color_black")}</option>
+            <option value="Gris">{translate("color_gris")}</option>
           </select>
 
-          <label>Talle:</label>
+          <label>{translate("size")}:</label>
           <select onChange={changeSizeHandler} value={size} ref={sizeRef}>
-            <option value="">Seleccione un talle</option>
+            <option value="">{translate("select_size")}</option>
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
@@ -237,16 +239,18 @@ const AddProduct = () => {
             <option value="XXL">XXL</option>
           </select>
 
-          <label>Cantidad de la prenda:</label>
+          <label>{translate("amount_garments")}</label>
           <input
             type="number"
             onChange={changeAmountHandler}
-            placeholder="Ingrese cantidad total"
+            placeholder={translate("amount")}
             ref={amountRef}
           />
         </Col>
         <Col className="d-flex justify-content-center mx-3 py-4">
-          <Button onClick={addProductsHandler}>Añadir producto</Button>
+          <Button onClick={addProductsHandler}>
+            {translate("add_product")}
+          </Button>
           <ToastContainer
             position="top-center"
             autoClose={3000}

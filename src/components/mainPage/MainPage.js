@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ShopFilter from "../shopFilter/ShopFilter";
 import Shop from "../shop/Shop";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const MainPage = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
@@ -12,6 +14,7 @@ const MainPage = () => {
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
   const navigate = useNavigate();
+  const translate = useTranslation();
 
   useEffect(() => {
     fetch("http://localhost:8000/products", {
@@ -43,17 +46,31 @@ const MainPage = () => {
   return (
     <div>
       <Row>
-
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button className="m-2 btn btn-outline-dark" onClick={manageProductHandler}>Administrar Productos</button>
+          <button
+            className="m-2 btn btn-outline-dark"
+            onClick={manageProductHandler}
+          >
+            {translate("administer_products")}
+          </button>
+        </Col>
+        <Col>
+          <ComboLanguage />
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button className="m-2 btn btn-outline-dark" onClick={manageUserHandler}>Administrar Usuarios</button>
+          <button
+            className="m-2 btn btn-outline-dark"
+            onClick={manageUserHandler}
+          >
+            {translate("administer_users")}
+          </button>
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
-          <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>Iniciar sesion</button>
+          <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>
+            {translate("login")}
+          </button>
         </Col>
       </Row>
 
@@ -70,7 +87,7 @@ const MainPage = () => {
 
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
-          ¡No hay productos con dichos filtros!
+          {translate("no_products")}
         </h3>
       ) : (
         <Shop products={productsFiltered} />
