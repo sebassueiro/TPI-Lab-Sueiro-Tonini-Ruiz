@@ -1,25 +1,25 @@
-#tacho{
-    height: 2rem;
-    border: 0px;
-    background-color: white;
+#tacho {
+  height: 2rem;
+  border: 0px;
+  background-color: white;
 }
 
 .button-container {
-    display: inline-block;
-    position: relative;
-  }
-  .hover-text {
-    position: absolute;
-    top: -50px;
-    left: -50px; /* Ajusta esta propiedad para la posición del texto */
-    background-color: #ff0000;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-    display: none;
-  }
-  
-  .button-container:hover .hover-text {
-    display: block;
-  }
+  display: inline-block;
+  position: relative;
+}
+.hover-text {
+  position: absolute;
+  top: -50px;
+  left: -50px; /* Ajusta esta propiedad para la posición del texto */
+  background-color: #ff0000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  display: none;
+}
+
+.button-container:hover .hover-text {
+  display: block;
+}
