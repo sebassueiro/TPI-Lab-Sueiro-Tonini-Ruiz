@@ -1,64 +1,129 @@
-import React from 'react'
-import './Login.css'
-import login_icon from '../images/login-icon.svg'
-import username_icon from '../images/username-icon.svg'
-import password_icon from '../images/password-icon.svg'   
-import { Link } from 'react-router-dom'
-
+import React, { useRef, useState } from "react";
+import "./Login.css";
+import login_icon from "../images/login-icon.svg";
+import username_icon from "../images/username-icon.svg";
+import password_icon from "../images/password-icon.svg";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return emailRegex.test(email);
+  };
+
+  const changeEmailHandler = (event) => {
+    if (emailRef.current.value.length > 0) {
+      emailRef.current.style.borderColor = "";
+      emailRef.current.style.outline = "";
+    }
+    setEmail(event.target.value);
+  };
+  const changePasswordHandler = (event) => {
+    if (passwordRef.current.value.length > 0) {
+      passwordRef.current.style.borderColor = "";
+      passwordRef.current.style.outline = "";
+    }
+    setPassword(event.target.value);
+  };
+
+  const loginButtonHandler = () => {
+    if (email === "" || validateEmail(email) === false || password === "") {
+      toast.error("Complete correctamente los campos resaltados en rojo");
+      if (email === "" || validateEmail(email) === false) {
+        emailRef.current.style.borderColor = "red";
+        emailRef.current.style.outline = "none";
+      }
+      if (password === "") {
+        passwordRef.current.style.borderColor = "red";
+        passwordRef.current.style.outline = "none";
+      }
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-5 pb-3 rounded-5 text-secondary shadow">
         <div className="d-flex justify-content-center">
-          <img id='login-icon'
-            src={login_icon}
-            alt="login-icon"
-          />
+          <img id="login-icon" src={login_icon} alt="login-icon" />
         </div>
         <div className="text-center fs-1 fw-bold">Ingresa a tu cuenta</div>
         <div className="input-group mt-4">
           <div className="input-group-text bg-dark">
-            <img
-             id='username-icon'
-             src={username_icon}
-             alt="username-icon"
-            />
+            <img id="username-icon" src={username_icon} alt="username-icon" />
           </div>
           <input
             className="form-control bg-light"
-            type="text"
+            type="email"
             placeholder="Email"
+            ref={emailRef}
+            onChange={changeEmailHandler}
           />
         </div>
         <div class="input-group mt-3">
-        <div class="input-group-text bg-dark">
-          <img
-           id='password-icon'
-            src={password_icon}
-            alt="password-icon"
+          <div class="input-group-text bg-dark">
+            <img id="password-icon" src={password_icon} alt="password-icon" />
+          </div>
+          <input
+            class="form-control bg-light"
+            type="password"
+            placeholder="Contraseña"
+            ref={passwordRef}
+            onChange={changePasswordHandler}
           />
         </div>
-        <input
-          class="form-control bg-light"
-          type="password"
-          placeholder="Contraseña"
-        />
-      </div>
-      <div class=" d-grid gap-2 col-12 mx-auto mt-4">
-        <div class=" d-grid">
-          <button className=' btn btn-outline-dark '>Iniciar sesion</button>
+        <div class=" d-grid gap-2 col-12 mx-auto mt-4">
+          <div class=" d-grid">
+            <button
+              className=" btn btn-outline-dark"
+              onClick={loginButtonHandler}
+            >
+              Iniciar sesion
+            </button>
+            <ToastContainer
+              position="top-center"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable={false}
+              pauseOnHover
+              theme="light"
+            />
+          </div>
         </div>
-      </div>
-      <p class="d-flex justify-content-center mt-4">
-        ¿No tienes cuenta?<Link to="/signup" className='ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover'>Crea tu cuenta!</Link>
-      </p>
-      <p class="d-flex justify-content-center mt-4"><Link to="/"
-            className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Volver a la tienda</Link>
+        <p class="d-flex justify-content-center mt-4">
+          ¿No tienes cuenta?
+          <Link
+            to="/signup"
+            className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          >
+            Crea tu cuenta!
+          </Link>
         </p>
-     </div>  
-    </div>  
-  )
-}
+        <p class="d-flex justify-content-center mt-4">
+          <Link
+            to="/"
+            className="ms-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          >
+            Volver a la tienda
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
 
-export default Login
+export default Login;

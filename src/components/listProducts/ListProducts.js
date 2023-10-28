@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './ListProducts.css'
+import "./ListProducts.css";
 
 const ListProducts = ({ products, deleteProductHandler }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -9,6 +9,7 @@ const ListProducts = ({ products, deleteProductHandler }) => {
         <thead>
           <tr>
             <th>Id</th>
+            <th>Nombre</th>
             <th>Tipo de prenda</th>
             <th>Precio</th>
             <th>Color</th>
@@ -18,8 +19,9 @@ const ListProducts = ({ products, deleteProductHandler }) => {
         </thead>
         {products.map((product) => (
           <tbody>
-            <tr>
+            <tr key={product.id}>
               <td>{product.id}</td>
+              <td>{product.name}</td>
               <td>{product.type}</td>
               <td>${product.price}</td>
               <td>{product.color}</td>
@@ -27,16 +29,24 @@ const ListProducts = ({ products, deleteProductHandler }) => {
               <td>{product.amount}</td>
               <td>
                 <div className="button-container">
-                  <button id='tacho' className={`button ${isHovered ? 'hovered' : ''}`}
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}><span onClick={() => deleteProductHandler(product.id)}>🗑️</span>
+                  <button
+                    id="tacho"
+                    className={`button ${isHovered ? "hovered" : ""}`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
+                    <span onClick={() => deleteProductHandler(product.id)}>
+                      🗑️
+                    </span>
                   </button>
-                  {isHovered && <div className="hover-text">Deseas eliminar?</div>}
+                  {isHovered && (
+                    <div className="hover-text">Deseas eliminar?</div>
+                  )}
                 </div>
-              </td> 
+              </td>
             </tr>
           </tbody>
-          ))}
+        ))}
       </table>
     </div>
   );
