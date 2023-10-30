@@ -49,6 +49,26 @@ const MainPage = () => {
     navigate("/manageProducts");
   };
 
+  const cartHandler = () => {
+    navigate("/cart");
+  };
+
+  const addToCartHandler = (id) => {
+    var cart = localStorage.getItem("cart");
+
+    if (cart) {
+      cart = JSON.parse(cart);
+    } else {
+      cart = [];
+    }
+    if (cart.includes(id)) {
+      alert("Ya esta");
+    } else {
+      alert("Agregado");
+      cart.push(id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  };
   return (
     <div>
       <Row>
@@ -78,6 +98,11 @@ const MainPage = () => {
         </Col>
 
         <Col className="d-flex justify-content-end mx-4 py-2">
+          <button className="m-2 btn btn-outline-dark" onClick={cartHandler}>
+            Carrito
+          </button>{" "}
+        </Col>
+        <Col className="d-flex justify-content-end mx-4 py-2">
           {!user ? (
             <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>
               {translate("login")}
@@ -105,7 +130,7 @@ const MainPage = () => {
           {translate("no_products")}
         </h3>
       ) : (
-        <Shop products={productsFiltered} />
+        <Shop products={productsFiltered} addToCartHandler={addToCartHandler} />
       )}
     </div>
   );

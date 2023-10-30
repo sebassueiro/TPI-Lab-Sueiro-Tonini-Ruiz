@@ -46,8 +46,8 @@ const ManageUser = () => {
       .catch((error) => console.error(error));
   };
 
-  const createAdminHandler = () => {
-    navigate("/createAdmin");
+  const createUserHandler = () => {
+    navigate("/createUser");
   };
 
   return (
@@ -76,7 +76,7 @@ const ManageUser = () => {
       <div className="d-flex mt-3">
         <button
           className="m-2 btn btn-outline-dark"
-          onClick={createAdminHandler}
+          onClick={createUserHandler}
         >
           {translate("create_admin")}
         </button>

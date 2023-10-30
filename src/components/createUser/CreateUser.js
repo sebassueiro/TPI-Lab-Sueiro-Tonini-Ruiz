@@ -4,12 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-const CreateAdmin = () => {
+const CreateUser = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
+  const [userType, setUserType] = useState("client");
 
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -52,6 +53,10 @@ const CreateAdmin = () => {
     }
     setPassword(event.target.value);
   };
+
+  const userTypeHandler = (event) => {
+    setUserType(event.target.value)
+  }
 
   useEffect(() => {
     fetch("http://localhost:8000/users", {
@@ -102,6 +107,7 @@ const CreateAdmin = () => {
           lastName,
           email,
           password,
+          userType,
         };
         const newUserId = users[users.length - 1].id + 1;
 
@@ -116,7 +122,7 @@ const CreateAdmin = () => {
             lastName: newUser.lastName,
             email: newUser.email,
             password: newUser.password,
-            userType: "admin",
+            userType: newUser.userType,
           }),
         })
           .then((response) => {
@@ -183,6 +189,14 @@ const CreateAdmin = () => {
             ref={passwordRef}
           />
         </div>
+        <div>
+          <label>Tipo de usuario:</label>
+          <select onChange={userTypeHandler}>
+            <option value="client">Cliente</option>
+            <option value="admin">Admin</option>
+            <option value="superAdmin">superAdmin</option>
+          </select>
+        </div>
         <div className="d-grid gap-2 col-12 mx-auto mt-4">
           <button onClick={addUserHandler} className=" btn btn-outline-dark ">
             {translate("register")}
@@ -215,4 +229,4 @@ const CreateAdmin = () => {
   );
 };
 
-export default CreateAdmin;
+export default CreateUser;
