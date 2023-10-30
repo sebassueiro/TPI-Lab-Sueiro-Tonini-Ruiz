@@ -8,10 +8,13 @@ import PageNotFound from "./components/pageNotFound/PageNotFound";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import AddProduct from "./components/addProduct/AddProduct";
-import CreateAdmin from "./components/createAdmin/CreateAdmin";
 import ManageUser from "./components/manageUser/ManageUser";
 import ManageProducts from "./components/manageProducts/ManageProducts";
-import Protected from "./components/protected/Protected";
+import ProtectedAdmin from "./components/protectedAdmin/ProtectedAdmin";
+import ProtectedSuperAdmin from "./components/protectedSuperAdmin/ProtectedSuperAdmin";
+import CreateUser from "./components/createUser/CreateUser";
+import Cart from "./components/cart/Cart";
+import ProtectedUser from "./components/protectedUser/ProtectedUser";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -34,34 +37,40 @@ const App = () => {
     {
       path: "/addProduct",
       element: (
-        <Protected>
+        <ProtectedAdmin>
           <AddProduct />
-        </Protected>
+        </ProtectedAdmin>
       ),
     },
     {
       path: "/manageProducts",
       element: (
-        <Protected>
+        <ProtectedAdmin>
           <ManageProducts />
-        </Protected>
+        </ProtectedAdmin>
       ),
     },
     {
       path: "/manageUser",
       element: (
-        <Protected>
+        <ProtectedSuperAdmin>
           <ManageUser />
-        </Protected>
+        </ProtectedSuperAdmin>
       ),
     },
     {
-      path: "/createAdmin",
+      path: "/createUser",
       element: (
-        <Protected>
-          <CreateAdmin />
-        </Protected>
+        <ProtectedSuperAdmin>
+          <CreateUser />
+        </ProtectedSuperAdmin>
       ),
+    },
+    {
+      path: "/cart",
+      element:(
+        <ProtectedUser><Cart/></ProtectedUser>
+      )
     },
     {
       path: "*",

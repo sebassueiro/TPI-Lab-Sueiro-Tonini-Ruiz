@@ -1,12 +1,29 @@
-import { Button } from "react-bootstrap";
-import "./Shop.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-const Shop = ({ products, addToCartHandler }) => {
+const Cart = () => {
+  const [products, setProducts] = useState([]);
+  const cartIds = JSON.parse(localStorage.getItem("cart"));
   const translate = useTranslation();
+  useEffect(() => {
+    fetch("http://localhost:8000/products", {
+      headers: {
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((productsData) => {
+        const filteredProducts = productsData.filter((product) =>
+          cartIds.includes(product.id)
+        );
+        setProducts(filteredProducts);
+        console.log(filteredProducts);
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
-    <div id="divProduct">
+    <div>
+      <h3>Carrito</h3>
       {products.map((product) => (
         <div className="cardProduct" key={product.id}>
           <h4>{product.name}</h4>
@@ -20,7 +37,7 @@ const Shop = ({ products, addToCartHandler }) => {
           <p>
             {translate("color")}: {product.color}
           </p>
-          <p>
+          {/* <p>
             {product.amount !== 0 ? (
               <p>
                 {translate("stock")}
@@ -29,12 +46,12 @@ const Shop = ({ products, addToCartHandler }) => {
             ) : (
               <b>{translate("no_stock")}</b>
             )}
-          </p>
-          {product.amount !== 0 && <Button onClick={() => addToCartHandler(product.id)}>{translate("add_to_cart")}</Button>}
+          </p> */}
+         
         </div>
       ))}
     </div>
   );
 };
 
-export default Shop;
+export default Cart;
