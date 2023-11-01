@@ -71,67 +71,34 @@ const MainPage = () => {
   };
   return (
     <div>
-      <Row>
-        <Col className="d-flex justify-content-end mx-4 py-2">
+      <div className="d-flex justify-content-between align-items-center mx-4">
+        <div className="py-2">
           {(userType === "admin" || userType === "superAdmin") && (
-            <button
-              className="m-2 btn btn-outline-dark"
-              onClick={manageProductHandler}
-            >
-              {translate("administer_products")}
-            </button>
-          )}
-        </Col>
-        <Col>
-          <ComboLanguage />
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
+            <button className="m-2 btn btn-outline-dark" onClick={manageProductHandler}> {translate("administer_products")} </button>)}
+        </div>
+        <div className="py-2">
           {userType === "superAdmin" && (
-            <button
-              className="m-2 btn btn-outline-dark"
-              onClick={manageUserHandler}
-            >
-              {translate("administer_users")}
-            </button>
-          )}
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-4 py-2">
+            <button className="m-2 btn btn-outline-dark" onClick={manageUserHandler}>{translate("administer_users")}</button>)}
+        </div>
+        <div className="py-2">
+          <ComboLanguage />
+        </div>
+        <div className="py-2">
           <button className="m-2 btn btn-outline-dark" onClick={cartHandler}>
-            Carrito
-          </button>{" "}
-        </Col>
-        <Col className="d-flex justify-content-end mx-4 py-2">
-          {!user ? (
-            <button className="m-2 btn btn-outline-dark" onClick={LoginHandler}>
-              {translate("login")}
-            </button>
-          ) : (
-            <button className="m-2 btn btn-outline-dark" onClick={handleLogout}>
-              Cerrar sesion
-            </button>
-          )}
-        </Col>
-      </Row>
+            {translate("cart")}
+          </button>
+        </div>
+        <div className="py-2">
+          {!user ? ( <button className="btn btn-outline-dark" onClick={LoginHandler}>{translate("login")}
+            </button>) : ( <button className="ml-2 btn btn-outline-dark" onClick={handleLogout}>{translate("sign_off")}</button>)}
+        </div>
+      </div>
 
-      <ShopFilter
-        typeSelected={typeSelected}
-        setTypeSelected={setTypeSelected}
-        colorSelected={colorSelected}
-        setColorSelected={setColorSelected}
-        sizeSelected={sizeSelected}
-        setSizeSelected={setSizeSelected}
-        products={products}
-        setProductsFiltered={setProductsFiltered}
-      />
+      <ShopFilter typeSelected={typeSelected} setTypeSelected={setTypeSelected} colorSelected={colorSelected} setColorSelected={setColorSelected} sizeSelected={sizeSelected} setSizeSelected={setSizeSelected} products={products} setProductsFiltered={setProductsFiltered}/>
       {productsFiltered.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
           {translate("no_products")}
-        </h3>
-      ) : (
-        <Shop products={productsFiltered} addToCartHandler={addToCartHandler} />
-      )}
+        </h3> ) : (<Shop products={productsFiltered} addToCartHandler={addToCartHandler} />)}
     </div>
   );
 };

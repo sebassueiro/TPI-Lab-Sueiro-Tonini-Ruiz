@@ -12,7 +12,7 @@ const ListProducts = ({
   const translate = useTranslation();
   return (
     <div className="d-flex  flex-column align-items-center w-75">
-      <table className="table table-hover mx-auto text-center">
+      <table className="table table-hover mx-auto text-center"  id="tabla">
         <thead>
           <tr>
             <th>Id</th>
@@ -36,7 +36,11 @@ const ListProducts = ({
               <td>{product.amount}</td>
               <td>
                 <div className="button-container">
-                  <button>
+                  <button
+                  id="tacho"
+                  className={`button ${isHovered ? "hovered" : ""}`}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}>
                     <span onClick={() => handleEditProduct(product)}>✏️</span>
                   </button>
                   {isHovered && (

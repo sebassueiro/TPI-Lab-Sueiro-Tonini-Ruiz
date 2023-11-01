@@ -3,7 +3,9 @@
   border: 0px;
   background-color: white;
 }
-
+#tabla{
+  height: 10px;
+}
 .button-container {
   display: inline-block;
   position: relative;
