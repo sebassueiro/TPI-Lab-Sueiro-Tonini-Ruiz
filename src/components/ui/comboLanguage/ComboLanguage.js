@@ -13,12 +13,7 @@ const ComboLanguage = () => {
   };
 
   return (
-    <Form.Select
-      onChange={changeLanguage}
-      value={language}
-      aria-label="Select Language"
-      className="w-50 mb-4"
-    >
+    <Form.Select onChange={changeLanguage}value={language}aria-label="Select Language">
       <option value="es">{translate("spanish_lang")}</option>
       <option value="en">{translate("english_lang")}</option>
     </Form.Select>

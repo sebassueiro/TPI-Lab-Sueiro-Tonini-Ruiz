@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import "./AddProduct.css";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -12,6 +12,7 @@ const AddProduct = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [amount, setAmount] = useState("");
+  const [url, setUrl] = useState ("");
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const translate = useTranslation();
@@ -22,6 +23,7 @@ const AddProduct = () => {
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
   const amountRef = useRef(null);
+  const urlRef = useRef(null);
 
   const changeNameHandler = (event) => {
     if (nameRef.current.value !== "") {
@@ -71,6 +73,14 @@ const AddProduct = () => {
     setAmount(parseInt(event.target.value));
   };
 
+  const changeUrlHandler = (event) => {
+    if (amountRef.current.value !== "") {
+      urlRef.current.style.borderColor = "";
+      urlRef.current.style.outline = "";
+    }
+    setUrl(event.target.value);
+  };
+
   useEffect(() => {
     fetch("http://localhost:8000/products", {
       headers: {
@@ -93,7 +103,8 @@ const AddProduct = () => {
       color === "" ||
       size === "" ||
       amount === "" ||
-      amount === 0
+      amount === 0 ||
+      url === ""
     ) {
       toast.error(translate("alert_empty_fields"));
       if (name === "") {
@@ -120,6 +131,10 @@ const AddProduct = () => {
         amountRef.current.style.borderColor = "red";
         amountRef.current.style.outline = "none";
       }
+      if (url === "" || url === 0) {
+        urlRef.current.style.borderColor = "red";
+        urlRef.current.style.outline = "none";
+      }
     } else {
       const newProduct = {
         name,
@@ -128,6 +143,7 @@ const AddProduct = () => {
         color,
         size,
         amount,
+        url,
       };
       const newProductId = products[products.length - 1].id + 1;
 
@@ -144,6 +160,7 @@ const AddProduct = () => {
           color: newProduct.color,
           size: newProduct.size,
           amount: newProduct.amount,
+          url: newProduct.url,
         }),
       })
         .then((response) => {
@@ -167,57 +184,39 @@ const AddProduct = () => {
       setColor("");
       setSize("");
       setAmount("");
+      setUrl("");
 
       toast.success(translate("alert_success"));
     }
   };
 
   return (
-    <div>
-      <Row className="d-flex justify-content pb-4 pt-2">
-        <Col className="d-flex justify-content pb-4 pt-2">
-          <h1>{translate("add_product")}</h1>
-        </Col>
-
-        <Col className="d-flex justify-content-end mx-3 py-2">
-          <Button
-            onClick={() => {
-              navigate("/manageProducts");
-            }}
-          >
-            {translate("back_to_product_management")}
-          </Button>
-        </Col>
-      </Row>
-      <form>
-        <Col className="d-flex justify-content-center mx-3 py-4">
-          <label>{translate("name_garments")}</label>
-          <input
-            type="text"
-            onChange={changeNameHandler}
-            placeholder="Nombre"
-            ref={nameRef}
-          />
-
-          <label>{translate("type_of_garments")}</label>
-          <select onChange={changeTypeHandler} value={type} ref={typeRef}>
+    <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
+      <div className="bg-white p-4 rounded-5 text-secondary shadow">
+        <div className="text-center fs-1 fw-bold">
+          {translate("add_product")}
+        </div>
+        <div className="input-group mt-4">
+          <label class="input-group-text">{translate("name_garments")}</label>
+          <input className="form-control " type="text" onChange={changeNameHandler} placeholder={translate("name")} ref={nameRef}/>
+        </div>
+        <div className="input-group mt-3">
+          <label class="input-group-text">{translate("type_of_garments")}</label>
+          <select  className="form-select" onChange={changeTypeHandler} value={type} ref={typeRef}>
             <option value="">{translate("select_type_garments")}</option>
             <option value="Remera">{translate("t-shirt")}</option>
             <option value="Buzo">{translate("hoodie")}</option>
             <option value="Pantalon">{translate("pants")}</option>
             <option value="Campera">{translate("jackets")}</option>
           </select>
-
-          <label>{translate("unit_price")}</label>
-          <input
-            type="number"
-            onChange={changePriceHandler}
-            placeholder={translate("price")}
-            ref={priceRef}
-          />
-
-          <label>{translate("color")}:</label>
-          <select onChange={changeColorHandler} value={color} ref={colorRef}>
+        </div>
+        <div className="input-group mt-3">
+          <label class="input-group-text">{translate("unit_price")}</label>
+          <input className="form-control bg-light" type="number" onChange={changePriceHandler} placeholder={translate("price")} ref={priceRef}/>
+        </div>
+        <div className="input-group mt-3">
+          <label class="input-group-text" >{translate("color")}:</label>
+          <select className="form-select" onChange={changeColorHandler} value={color} ref={colorRef}>
             <option value="">{translate("select_color")}</option>
             <option value="Azul">{translate("color_blue")}</option>
             <option value="Rojo">{translate("color_red")}</option>
@@ -228,9 +227,10 @@ const AddProduct = () => {
             <option value="Negro">{translate("color_black")}</option>
             <option value="Gris">{translate("color_gris")}</option>
           </select>
-
-          <label>{translate("size")}:</label>
-          <select onChange={changeSizeHandler} value={size} ref={sizeRef}>
+        </div>
+        <div className="input-group mt-3">
+          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("size")}:</label>
+          <select  className="form-select" onChange={changeSizeHandler} value={size} ref={sizeRef}>
             <option value="">{translate("select_size")}</option>
             <option value="S">S</option>
             <option value="M">M</option>
@@ -238,33 +238,21 @@ const AddProduct = () => {
             <option value="XL">XL</option>
             <option value="XXL">XXL</option>
           </select>
-
-          <label>{translate("amount_garments")}</label>
-          <input
-            type="number"
-            onChange={changeAmountHandler}
-            placeholder={translate("amount")}
-            ref={amountRef}
-          />
-        </Col>
-        <Col className="d-flex justify-content-center mx-3 py-4">
-          <Button onClick={addProductsHandler}>
-            {translate("add_product")}
-          </Button>
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable={false}
-            pauseOnHover
-            theme="light"
-          />
-        </Col>
-      </form>
+        </div>
+        <div className="input-group mt-3"> 
+          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("amount_garments")}</label>
+          <input className="form-control bg-light" type="number" onChange={changeAmountHandler} placeholder={translate("amount")} ref={amountRef}/>
+        </div>
+        <div className="input-group mt-3">
+          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("enter_photo_url")}</label>
+          <input className="form-control bg-light" type="type" onChange={changeUrlHandler} placeholder="URL" ref={urlRef}/>
+        </div>
+        <div className="input-group mt-3">
+          <button className="m-2 btn btn-outline-dark" onClick={addProductsHandler}>{translate("add_product")}</button>
+          <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/manageProducts");}}>{translate("back_to_product_management")}</button>
+        </div>
+        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
+      </div>
     </div>
   );
 };

@@ -154,65 +154,30 @@ const CreateUser = () => {
           {translate("create_admin")}
         </div>
         <div className="input-group mt-4">
-          <input
-            onChange={changeFirstNameHandler}
-            className="form-control bg-light"
-            type="text"
-            placeholder={translate("name")}
-            ref={firstNameRef}
-          />
+          <input onChange={changeFirstNameHandler} className="form-control bg-light" type="text" placeholder={translate("name")} ref={firstNameRef}/>
         </div>
         <div className="input-group mt-4">
-          <input
-            onChange={changeLastNameHandler}
-            className="form-control bg-light"
-            type="text"
-            placeholder={translate("lastname")}
-            ref={lastNameRef}
-          />
+          <input onChange={changeLastNameHandler}className="form-control bg-light"type="text"placeholder={translate("lastname")}ref={lastNameRef}/>
         </div>
         <div className="input-group mt-4">
-          <input
-            onChange={changeEmailHandler}
-            className="form-control bg-light"
-            type="email"
-            placeholder="Email"
-            ref={emailRef}
-          />
+          <input onChange={changeEmailHandler}className="form-control bg-light"type="email" placeholder="Email"ref={emailRef}/>
         </div>
         <div className="input-group mt-4">
-          <input
-            onChange={changePasswordHandler}
-            className="form-control bg-light"
-            type="Password"
-            placeholder={translate("password")}
-            ref={passwordRef}
-          />
+          <input onChange={changePasswordHandler} className="form-control bg-light" type="Password" placeholder={translate("password")} ref={passwordRef}/>
         </div>
-        <div>
-          <label>Tipo de usuario:</label>
-          <select onChange={userTypeHandler}>
-            <option value="client">Cliente</option>
-            <option value="admin">Admin</option>
-            <option value="superAdmin">superAdmin</option>
+        <div className="input-group mt-3">
+          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("type_of_user")}:</label>
+          <select className="form-select" onChange={userTypeHandler}>
+            <option value="client">{translate("client")}</option>
+            <option value="admin">{translate("admin")}</option>
+            <option value="superAdmin">{translate("superAdmin")}</option>
           </select>
         </div>
         <div className="d-grid gap-2 col-12 mx-auto mt-4">
           <button onClick={addUserHandler} className=" btn btn-outline-dark ">
             {translate("register")}
           </button>
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable={false}
-            pauseOnHover
-            theme="light"
-          />
+          <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light"/>
         </div>
         <p class="d-flex justify-content-center mt-4">
           <button

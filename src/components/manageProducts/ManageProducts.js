@@ -101,10 +101,7 @@ const ManageProducts = () => {
           <form>
             <label>
               {translate("price")}:
-              <input
-                type="number"
-                value={editProduct.price}
-                onChange={(event) => {
+              <input type="number"value={editProduct.price}onChange={(event) => {
                   const inputValue = parseInt(event.target.value);
                   if (inputValue <= 0) {
                     alert("Ingrese una cantidad mayor a cero");
@@ -112,10 +109,7 @@ const ManageProducts = () => {
                     setEditProduct({
                       ...editProduct,
                       price: inputValue,
-                    });
-                  }
-                }}
-              />
+                      });}}}/>
             </label>
             <label>
               {translate("amount")}:
@@ -165,7 +159,7 @@ const ManageProducts = () => {
           products={productsFiltered}
           deleteProductHandler={deleteProductHandler}
           handleEditProduct={handleEditProduct}
-        />
+         />
       )}
       <ToastContainer
         position="top-center"

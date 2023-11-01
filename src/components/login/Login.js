@@ -6,8 +6,6 @@ import password_icon from "../images/password-icon.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
-//import { TranslateContext } from "../../services/translationContext/translation.context";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
 
@@ -84,7 +82,6 @@ const Login = () => {
 
   return (
     <div className="bg-body-secondary d-flex justify-content-center align-items-center vh-100">
-      <ComboLanguage />
       <div className="bg-white p-5 pb-3 rounded-5 text-secondary shadow">
         <div className="d-flex justify-content-center">
           <img id="login-icon" src={login_icon} alt="login-icon" />
