@@ -107,6 +107,7 @@ const ManageProducts = () => {
           <div className="input-group mt-4">
             <label class="input-group-text">
               {translate("price")}:
+
               <input className="form-control bg-light" type="number"value={editProduct.price}onChange={(event) => {
                   const inputValue = parseInt(event.target.value);
                   if (inputValue <= 0) {
@@ -115,7 +116,10 @@ const ManageProducts = () => {
                     setEditProduct({
                       ...editProduct,
                       price: inputValue,
-                      });}}}/>
+                    });
+                  }
+                }}
+              />
             </label>
             </div>
             
@@ -170,7 +174,7 @@ const ManageProducts = () => {
           products={productsFiltered}
           deleteProductHandler={deleteProductHandler}
           handleEditProduct={handleEditProduct}
-         />
+        />
       )}
       <ToastContainer
         position="top-center"

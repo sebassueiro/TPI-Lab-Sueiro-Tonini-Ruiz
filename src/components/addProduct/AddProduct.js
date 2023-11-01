@@ -12,7 +12,7 @@ const AddProduct = () => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [amount, setAmount] = useState("");
-  const [url, setUrl] = useState ("");
+  const [url, setUrl] = useState("");
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const translate = useTranslation();
@@ -198,11 +198,24 @@ const AddProduct = () => {
         </div>
         <div className="input-group mt-4">
           <label class="input-group-text">{translate("name_garments")}</label>
-          <input className="form-control " type="text" onChange={changeNameHandler} placeholder={translate("name")} ref={nameRef}/>
+          <input
+            className="form-control "
+            type="text"
+            onChange={changeNameHandler}
+            placeholder={translate("name")}
+            ref={nameRef}
+          />
         </div>
         <div className="input-group mt-3">
-          <label class="input-group-text">{translate("type_of_garments")}</label>
-          <select  className="form-select" onChange={changeTypeHandler} value={type} ref={typeRef}>
+          <label class="input-group-text">
+            {translate("type_of_garments")}
+          </label>
+          <select
+            className="form-select"
+            onChange={changeTypeHandler}
+            value={type}
+            ref={typeRef}
+          >
             <option value="">{translate("select_type_garments")}</option>
             <option value="Remera">{translate("t-shirt")}</option>
             <option value="Buzo">{translate("hoodie")}</option>
@@ -212,11 +225,22 @@ const AddProduct = () => {
         </div>
         <div className="input-group mt-3">
           <label class="input-group-text">{translate("unit_price")}</label>
-          <input className="form-control bg-light" type="number" onChange={changePriceHandler} placeholder={translate("price")} ref={priceRef}/>
+          <input
+            className="form-control bg-light"
+            type="number"
+            onChange={changePriceHandler}
+            placeholder={translate("price")}
+            ref={priceRef}
+          />
         </div>
         <div className="input-group mt-3">
-          <label class="input-group-text" >{translate("color")}:</label>
-          <select className="form-select" onChange={changeColorHandler} value={color} ref={colorRef}>
+          <label class="input-group-text">{translate("color")}:</label>
+          <select
+            className="form-select"
+            onChange={changeColorHandler}
+            value={color}
+            ref={colorRef}
+          >
             <option value="">{translate("select_color")}</option>
             <option value="Azul">{translate("color_blue")}</option>
             <option value="Rojo">{translate("color_red")}</option>
@@ -229,8 +253,15 @@ const AddProduct = () => {
           </select>
         </div>
         <div className="input-group mt-3">
-          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("size")}:</label>
-          <select  className="form-select" onChange={changeSizeHandler} value={size} ref={sizeRef}>
+          <label class="input-group-text" id="inputGroup-sizing-sm">
+            {translate("size")}:
+          </label>
+          <select
+            className="form-select"
+            onChange={changeSizeHandler}
+            value={size}
+            ref={sizeRef}
+          >
             <option value="">{translate("select_size")}</option>
             <option value="S">S</option>
             <option value="M">M</option>
@@ -239,19 +270,58 @@ const AddProduct = () => {
             <option value="XXL">XXL</option>
           </select>
         </div>
-        <div className="input-group mt-3"> 
-          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("amount_garments")}</label>
-          <input className="form-control bg-light" type="number" onChange={changeAmountHandler} placeholder={translate("amount")} ref={amountRef}/>
+        <div className="input-group mt-3">
+          <label class="input-group-text" id="inputGroup-sizing-sm">
+            {translate("amount_garments")}
+          </label>
+          <input
+            className="form-control bg-light"
+            type="number"
+            onChange={changeAmountHandler}
+            placeholder={translate("amount")}
+            ref={amountRef}
+          />
         </div>
         <div className="input-group mt-3">
-          <label class="input-group-text" id="inputGroup-sizing-sm">{translate("enter_photo_url")}</label>
-          <input className="form-control bg-light" type="type" onChange={changeUrlHandler} placeholder="URL" ref={urlRef}/>
+          <label class="input-group-text" id="inputGroup-sizing-sm">
+            {translate("enter_photo_url")}
+          </label>
+          <input
+            className="form-control bg-light"
+            type="type"
+            onChange={changeUrlHandler}
+            placeholder="URL"
+            ref={urlRef}
+          />
         </div>
         <div className="input-group mt-3">
-          <button className="m-2 btn btn-outline-dark" onClick={addProductsHandler}>{translate("add_product")}</button>
-          <button className="m-2 btn btn-outline-dark" onClick={() => {navigate("/manageProducts");}}>{translate("back_to_product_management")}</button>
+          <button
+            className="m-2 btn btn-outline-dark"
+            onClick={addProductsHandler}
+          >
+            {translate("add_product")}
+          </button>
+          <button
+            className="m-2 btn btn-outline-dark"
+            onClick={() => {
+              navigate("/manageProducts");
+            }}
+          >
+            {translate("back_to_product_management")}
+          </button>
         </div>
-        <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable={false} pauseOnHover theme="light" />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </div>
   );
