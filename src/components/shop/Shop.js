@@ -9,7 +9,7 @@ const Shop = ({ products, addToCartHandler }) => {
       {products.map((product) => (
         <div className="card text-center mb-3" id="cardProduct" key={product.id}>
           <div className="mt-2 mb-3">
-          <img id="imagen" src={product.url} alt="Imagen del producto"/>
+          <img id="imagen" src={product.url} alt={product.name}/>
           <h4 className="card-title">{product.name}</h4>
           <p>{translate("price")}: ${product.price}<p/>
           <p>{translate("size")}: {product.size}</p>
