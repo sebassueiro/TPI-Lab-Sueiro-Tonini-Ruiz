@@ -54,7 +54,7 @@ export const dictionary_translations = {
     { key: "no_products", value: "¡No hay productos con dichos filtros!" },
     { key: "no_stock", value: "Producto no disponible" },
     { key: "stock", value: "Unidades disponibles: " },
-    { key: "edit", value: "Editar: " },
+    { key: "edit", value: "Editar " },
     { key: "save_changes", value: "Guardar cambios" },
     {key: "alert_empty_fields",value: "Complete correctamente los campos resaltados en rojo",},
     { key: "alert_success", value: "Producto añadido con exito!" },
@@ -69,7 +69,8 @@ export const dictionary_translations = {
     { key: "wish_edit", value: "¿Deseas editar?" },
     { key: "enter_photo_url", value: "Ingrese la URL de la foto:"},
     { key: "cart", value: "Carrito"},
-    { key: "sign_off" , value: "Cerrar sesión"}
+    { key: "sign_off" , value: "Cerrar sesión"},
+    { key: "cancel" , value: "Cancelar"}
   ],
   en: [
     { key: "login", value: "Login" },
@@ -138,6 +139,7 @@ export const dictionary_translations = {
     { key: "wish_edit", value: "Edit?" },
     { key: "enter_photo_url", value: "Enter photo url"},
     { key: "cart", value: "Cart"},
-    { key: "sign_off" , value: "Sign off"}
+    { key: "sign_off" , value: "Sign off"},
+    { key: "cancel" , value: "Cancel"}
   ],
 };

@@ -13,11 +13,12 @@ const Shop = ({ products, addToCartHandler }) => {
           key={product.id}
         >
           <div className="mt-2 mb-3">
-            <img id="imagen" src={product.url} alt="Imagen del producto" />
+
+            <img id="imagen" src={product.url} alt={product.name} />
             <h4 className="card-title">{product.name}</h4>
             <p>
               {translate("price")}: ${product.price}
-              <p />
+              <p/>
               <p>
                 {translate("size")}: {product.size}
               </p>
@@ -41,6 +42,7 @@ const Shop = ({ products, addToCartHandler }) => {
                 {translate("add_to_cart")}
               </button>
             )}
+
           </div>
         </div>
       ))}

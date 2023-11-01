@@ -5,11 +5,15 @@ import ShopFilter from "../shopFilter/ShopFilter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import './ManageProducts.css';
 
 const ManageProducts = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
   const [colorSelected, setColorSelected] = useState("Todos");
   const [sizeSelected, setSizeSelected] = useState("Todos");
+
+  const [isEditing, setIsEditing] = useState(false);
+
 
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
@@ -57,6 +61,7 @@ const ManageProducts = () => {
 
   const handleEditProduct = (product) => {
     setEditProduct(product);
+    setIsEditing(true);
   };
 
   const handleUpdateProduct = () => {
@@ -93,18 +98,17 @@ const ManageProducts = () => {
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center h-100  p-4">
-      {editProduct && (
-        <div>
-          <h3>
+      {editProduct && isEditing &&(
+        <div className="form-container ">
+          <div className="form">
+          <h4>
             {translate("edit")} {editProduct.type} id: {editProduct.id}
-          </h3>
-          <form>
-            <label>
+          </h4>
+          <div className="input-group mt-4">
+            <label class="input-group-text">
               {translate("price")}:
-              <input
-                type="number"
-                value={editProduct.price}
-                onChange={(event) => {
+
+              <input className="form-control bg-light" type="number"value={editProduct.price}onChange={(event) => {
                   const inputValue = parseInt(event.target.value);
                   if (inputValue <= 0) {
                     alert("Ingrese una cantidad mayor a cero");
@@ -117,9 +121,12 @@ const ManageProducts = () => {
                 }}
               />
             </label>
-            <label>
+            </div>
+            
+            <label class="input-group-text">
               {translate("amount")}:
               <input
+                className="form-control"
                 type="number"
                 value={editProduct.amount}
                 onChange={(event) => {
@@ -135,15 +142,17 @@ const ManageProducts = () => {
                 }}
               />
             </label>
-
-            <button
-              onClick={() => {
-                handleUpdateProduct(editProduct);
-              }}
-            >
-              {translate("save_changes")}
-            </button>
-          </form>
+            <div className="buttons">
+              <button
+                className=" btn btn-outline-dark"
+                onClick={() => {
+                 handleUpdateProduct(editProduct);
+                }}>
+                {translate("save_changes")}
+              </button>
+              <button className=" btn btn-outline-dark" onClick={() => setIsEditing(false)}>{translate("cancel")}</button>
+            </div>
+          </div>
         </div>
       )}
       <ShopFilter
