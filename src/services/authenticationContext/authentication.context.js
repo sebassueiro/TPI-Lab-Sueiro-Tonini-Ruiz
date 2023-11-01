@@ -16,6 +16,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("cart");
     setUser(null);
   };
 
