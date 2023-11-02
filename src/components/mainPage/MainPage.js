@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import ShopFilter from "../shopFilter/ShopFilter";
 import Shop from "../shop/Shop";
-import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguage";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
+import { ToastContainer, toast } from "react-toastify";
 
 const MainPage = () => {
   const [typeSelected, setTypeSelected] = useState("Todos");
@@ -59,10 +59,10 @@ const MainPage = () => {
       let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
       if (cart[productId]) {
-        alert("El producto ya está en el carrito");
-        cart[productId] += amountProducts; // Incrementa la cantidad del producto en el carrito.
+        toast.warning(translate("alert_prod_in_cart"));
+        //cart[productId] += amountProducts; // Incrementa la cantidad del producto en el carrito.
       } else {
-        alert("Agregado al carrito");
+        toast.success(translate("alert_add_prod_cart"));
         cart[productId] = amountProducts; // Inicializa la cantidad del producto en el carrito.
       }
 
@@ -138,6 +138,18 @@ const MainPage = () => {
       ) : (
         <Shop products={productsFiltered} addToCartHandler={addToCartHandler} />
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
