@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -36,11 +37,10 @@ const Cart = () => {
   }, []);
 
   const removeFromCart = (productId) => {
-    let cart = JSON.parse(localStorage.getItem("cart"));
+    let updatedCart = { ...cart };
 
-    if (cart && cart[productId]) {
-      delete cart[productId];
-      localStorage.setItem("cart", JSON.stringify(cart));
+    if (updatedCart && updatedCart[productId]) {
+      delete updatedCart[productId];
 
       const updatedProducts = products.map((product) => {
         if (product.id === productId) {
@@ -54,9 +54,11 @@ const Cart = () => {
       );
 
       setProducts(filteredProducts);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
 
-    if (cart.length === undefined) {
+    const cartKeys = Object.keys(updatedCart);
+    if (cartKeys.length === 0) {
       localStorage.removeItem("cart");
     }
   };
@@ -68,21 +70,41 @@ const Cart = () => {
 
   const increaseButtonHandler = (productId, amountTotal) => {
     if (cart[productId] < amountTotal) {
-      cart[productId] += 1;
+      const updatedCart = { ...cart };
+      updatedCart[productId] += 1;
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      const updatedProducts = products.map((product) => {
+        if (product.id === productId) {
+          return { ...product, amountInCart: updatedCart[productId] };
+        }
+        return product;
+      });
+
+      setProducts(updatedProducts);
     } else {
-      alert("No hay mas stock");
+      toast.warning(translate("alert_increase"));
     }
   };
 
   const decreaseButtonHandler = (productId) => {
     if (cart[productId] > 1) {
-      cart[productId] -= 1;
+      const updatedCart = { ...cart };
+      updatedCart[productId] -= 1;
 
-      localStorage.setItem("cart", JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      const updatedProducts = products.map((product) => {
+        if (product.id === productId) {
+          return { ...product, amountInCart: updatedCart[productId] };
+        }
+        return product;
+      });
+
+      setProducts(updatedProducts);
     } else {
-      alert("No puede decrementar mas");
+      toast.warning(translate("alert_decrease"));
     }
   };
 
@@ -136,7 +158,7 @@ const Cart = () => {
 
   return (
     <div>
-      <h3>Carrito</h3>
+      <h3>{translate("cart")}</h3>
       {cart ? (
         <div>
           {products.map((product) => (
@@ -153,7 +175,7 @@ const Cart = () => {
                 {translate("color")}: {product.color}
               </p>
               <p>
-                Cantidad en carrito:
+                {translate("amount_cart")}
                 <button onClick={() => decreaseButtonHandler(product.id)}>
                   -
                 </button>
@@ -167,20 +189,36 @@ const Cart = () => {
                 </button>
               </p>
               <p>
-                Subtotal del producto {product.name}: $
+                {translate("subtotal_prod")} {product.name}: $
                 {product.amountInCart * product.price}
               </p>
-              <button onClick={() => removeFromCart(product.id)}>Borrar</button>
+              <button onClick={() => removeFromCart(product.id)}>
+                {translate("delete")}
+              </button>
             </div>
           ))}
-          <h3>Precio total: ${totalPrice}</h3>
-          <button onClick={clearCart}>Eliminar carrito</button>
+          <h3>
+            {translate("total_price")} ${totalPrice}
+          </h3>
+          <button onClick={clearCart}>{translate("delete_cart")}</button>
 
-          <button onClick={buyCartButtonHandler}>Comprar</button>
+          <button onClick={buyCartButtonHandler}>{translate("buy")}</button>
         </div>
       ) : (
-        <h1>El carrito esta vacio</h1>
+        <h1>{translate("cart_empty")}</h1>
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
