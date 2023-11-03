@@ -109,7 +109,7 @@ const CreateUser = () => {
           password,
           userType,
         };
-        const newUserId = users[users.length - 1].id + 1;
+        const newUserId =users.length === 0 ? 1 : users[users.length - 1].id + 1;
 
         fetch("http://localhost:8000/users", {
           method: "POST",

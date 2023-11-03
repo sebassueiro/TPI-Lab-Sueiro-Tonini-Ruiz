@@ -92,6 +92,18 @@ export const dictionary_translations = {
     { key: "alert_decrease", value: "Cantidad minima 1" },
     { key: "alert_add_prod_cart", value: "Producto agregado al carrito!" },
     { key: "alert_prod_in_cart", value: "El producto ya está en el carrito!" },
+    { key: "list_sales", value: "Lista de ventas" },
+    { key: "no_sales", value: "¡No hay ventas cargadas!" },
+    { key: "select_email", value: "Seleccione email:" },
+    { key: "all_email", value: "Todos los emails" },
+    { key: "sales_id", value: "Venta ID" },
+    { key: "products", value: "Productos" },
+    { key: "total_price", value: "Precio total" },
+    { key: "product", value: "Producto" },
+    { key: "subtotal_price", value: "Precio Subtotal" },
+
+
+
   ],
   en: [
     { key: "login", value: "Login" },
@@ -177,5 +189,15 @@ export const dictionary_translations = {
     { key: "alert_decrease", value: "Minimum quantity 1" },
     { key: "alert_add_prod_cart", value: "Product added to cart!" },
     { key: "alert_prod_in_cart", value: "The product is already in the cart!" },
+    { key: "list_sales", value: "Sales list" },
+    { key: "no_sales", value: "No sales loaded!" },
+    { key: "select_email", value: "Select email:" },
+    { key: "all_email", value: "All emails" },
+    { key: "sales_id", value: "Sale ID" },
+    { key: "products", value: "Products" },
+    { key: "total_price", value: "Total price" },
+    { key: "product", value: "Product" },
+    { key: "subtotal_price", value: "Subtotal price" },
+
   ],
 };

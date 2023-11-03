@@ -27,7 +27,7 @@ const ManageSales = () => {
   }, []);
   return (
     <div className="d-flex flex-column align-items-center justify-content-center h-100  p-4">
-      <h1>Lista de ventas</h1>
+      <h1>{translate("list_sales")}</h1>
       <div className="d-flex flex-column-end align-items-center justify-content-center h-100  p-4">
         <button
           className="m-2 btn btn-outline-dark"
@@ -46,7 +46,7 @@ const ManageSales = () => {
       />
       {sales.length === 0 ? (
         <h3 className="d-flex justify-content-center mx-auto px-4">
-          ¡No hay ventas cargadas!
+          {translate("no_sales")}
         </h3>
       ) : (
         <ListSales sales={salesFiltered} />

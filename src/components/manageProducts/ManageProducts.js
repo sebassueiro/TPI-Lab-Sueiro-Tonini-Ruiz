@@ -43,7 +43,7 @@ const ManageProducts = () => {
     })
       .then((response) => {
         if (response.ok) {
-          toast.success(`Producto con ID ${id} eliminado con éxito.`);
+          toast.success(`Producto eliminado con éxito.`);
           const updatedProducts = products.filter(
             (product) => product.id !== id
           );
@@ -89,8 +89,8 @@ const ManageProducts = () => {
 
           setProducts(updatedProducts);
           setProductsFiltered(updatedProducts);
-
           setEditProduct(null);
+          toast.success("Producto modificado con exito!")
         })
         .catch((error) => console.error(error));
     }
