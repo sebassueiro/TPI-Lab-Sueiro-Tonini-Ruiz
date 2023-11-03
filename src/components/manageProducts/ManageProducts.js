@@ -23,7 +23,7 @@ const ManageProducts = () => {
   const translate = useTranslation();
 
   useEffect(() => {
-    fetch("http://localhost:8000/products", {
+    fetch("https://ecommercefjsapi.onrender.com/products", {
       headers: {
         accept: "application/json",
       },
@@ -38,7 +38,7 @@ const ManageProducts = () => {
   }, []);
 
   const deleteProductHandler = (id) => {
-    fetch(`http://localhost:8000/products/${id}`, {
+    fetch(`https://ecommercefjsapi.onrender.com/products/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -68,7 +68,7 @@ const ManageProducts = () => {
     if (editProduct) {
       const updatedProduct = { ...editProduct };
 
-      fetch(`http://localhost:8000/products/${updatedProduct.id}`, {
+      fetch(`https://ecommercefjsapi.onrender.com/products/${updatedProduct.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

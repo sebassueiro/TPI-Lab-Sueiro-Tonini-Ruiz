@@ -59,7 +59,7 @@ const CreateUser = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/users", {
+    fetch("https://ecommercefjsapi.onrender.com/users", {
       headers: {
         accept: "application/json",
       },
@@ -111,7 +111,7 @@ const CreateUser = () => {
         };
         const newUserId =users.length === 0 ? 1 : users[users.length - 1].id + 1;
 
-        fetch("http://localhost:8000/users", {
+        fetch("https://ecommercefjsapi.onrender.com/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

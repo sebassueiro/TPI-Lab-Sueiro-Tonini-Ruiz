@@ -15,7 +15,7 @@ const ManageUser = () => {
   const translate = useTranslation();
 
   useEffect(() => {
-    fetch("http://localhost:8000/users", {
+    fetch("https://ecommercefjsapi.onrender.com/users", {
       headers: {
         accept: "application/json",
       },
@@ -30,7 +30,7 @@ const ManageUser = () => {
   }, []);
 
   const deleteUserHandler = (id) => {
-    fetch(`http://localhost:8000/users/${id}`, {
+    fetch(`https://ecommercefjsapi.onrender.com/users/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

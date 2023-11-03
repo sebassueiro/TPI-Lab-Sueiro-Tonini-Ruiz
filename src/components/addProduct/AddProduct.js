@@ -149,7 +149,7 @@ const AddProduct = () => {
       const newProductId =
         products.length === 0 ? 1 : products[products.length - 1].id + 1;
 
-      fetch("http://localhost:8000/products", {
+      fetch("https://ecommercefjsapi.onrender.com/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",
