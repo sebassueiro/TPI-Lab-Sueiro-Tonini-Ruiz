@@ -49,6 +49,10 @@ const MainPage = () => {
     navigate("/manageProducts");
   };
 
+  const manageSalesHandler = () => {
+    navigate("/manageSales");
+  };
+
   const cartHandler = () => {
     navigate("/cart");
   };
@@ -97,14 +101,28 @@ const MainPage = () => {
             </button>
           )}
         </div>
+
         <div className="py-2">
           <ComboLanguage />
         </div>
+
+        <div className="py-2">
+          {(userType === "admin" || userType === "superAdmin") && (
+            <button
+              className="m-2 btn btn-outline-dark"
+              onClick={manageSalesHandler}
+            >
+              Lista de ventas
+            </button>
+          )}
+        </div>
+
         <div className="py-2">
           <button className="m-2 btn btn-outline-dark" onClick={cartHandler}>
             {translate("cart")}
           </button>
         </div>
+
         <div className="py-2">
           {!user ? (
             <button className="btn btn-outline-dark" onClick={LoginHandler}>

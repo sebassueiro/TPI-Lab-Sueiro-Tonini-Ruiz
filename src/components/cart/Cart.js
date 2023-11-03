@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
+import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [sales, setSales] = useState([]);
   const cart = JSON.parse(localStorage.getItem("cart"));
+
+  const { user } = useContext(AuthenticationContext);
   const translate = useTranslation();
   const navigate = useNavigate();
 
@@ -127,6 +130,7 @@ const Cart = () => {
     const newSalesId = sales[sales.length - 1].id + 1;
     const newSale = {
       id: newSalesId,
+      email: user.email,
       cart: products.map((product) => ({
         productId: product.id,
         amountProducts: product.amountInCart,
@@ -150,7 +154,34 @@ const Cart = () => {
       })
       .then((newSaleData) => {
         setSales([...sales, newSaleData]);
+
+        newSale.cart.forEach((cartProduct) => {
+          const productToUpdate = products.find(
+            (product) => product.id === cartProduct.productId
+          );
+          if (productToUpdate) {
+            const newAmount =
+              productToUpdate.amount - cartProduct.amountProducts;
+            // Recupera todos los campos del producto original
+            fetch(`http://localhost:8000/products/${cartProduct.productId}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ...productToUpdate, amount: newAmount }),
+            })
+              .then((response) => {
+                if (response.ok) return response.json();
+                else {
+                  throw new Error("La respuesta tuvo algunos errores");
+                }
+              })
+              .catch((error) => console.log(error));
+          }
+        });
+
         localStorage.removeItem("cart");
+
         navigate("/mainPage");
       })
       .catch((error) => console.log(error));

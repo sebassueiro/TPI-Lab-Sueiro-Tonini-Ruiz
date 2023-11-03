@@ -1,0 +1,24 @@
+#tablaSales {
+  height: 10px;
+}
+
+#tablaSales table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tablaSales table,
+#tablaSales th,
+#tablaSales td {
+  border: 1px solid black;
+}
+
+#tablaSales th,
+#tablaSales td {
+  padding: 8px;
+  text-align: left;
+}
+
+#tablaSales th {
+  background-color: #f2f2f2;
+}

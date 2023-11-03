@@ -15,6 +15,7 @@ import ProtectedSuperAdmin from "./components/protectedSuperAdmin/ProtectedSuper
 import CreateUser from "./components/createUser/CreateUser";
 import Cart from "./components/cart/Cart";
 import ProtectedUser from "./components/protectedUser/ProtectedUser";
+import ManageSales from "./components/manageSales/ManageSales";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -68,9 +69,19 @@ const App = () => {
     },
     {
       path: "/cart",
-      element:(
-        <ProtectedUser><Cart/></ProtectedUser>
-      )
+      element: (
+        <ProtectedUser>
+          <Cart />
+        </ProtectedUser>
+      ),
+    },
+    {
+      path: "/manageSales",
+      element: (
+        <ProtectedAdmin>
+          <ManageSales />
+        </ProtectedAdmin>
+      ),
     },
     {
       path: "*",
