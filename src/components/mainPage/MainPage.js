@@ -23,7 +23,7 @@ const MainPage = () => {
   const translate = useTranslation();
 
   useEffect(() => {
-    fetch("http://localhost:8000/products", {
+    fetch("https://ecommercefjsapi.onrender.com/products", {
       headers: {
         accept: "application/json",
       },

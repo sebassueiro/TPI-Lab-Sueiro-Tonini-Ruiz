@@ -23,7 +23,7 @@ const Login = () => {
   const translate = useTranslation();
 
   useEffect(() => {
-    fetch("http://localhost:8000/users", {
+    fetch("https://ecommercefjsapi.onrender.com/users", {
       headers: {
         accept: "application/json",
       },

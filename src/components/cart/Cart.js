@@ -19,7 +19,7 @@ const Cart = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:8000/products", {
+    fetch("https://ecommercefjsapi.onrender.com/products", {
       headers: {
         accept: "application/json",
       },
@@ -114,7 +114,7 @@ const Cart = () => {
   //----------------------------------------------------------------
 
   useEffect(() => {
-    fetch("http://localhost:8000/sales", {
+    fetch("https://ecommercefjsapi.onrender.com/sales", {
       headers: {
         accept: "application/json",
       },
@@ -139,7 +139,7 @@ const Cart = () => {
       totalPrice: totalPrice,
     };
 
-    fetch("http://localhost:8000/sales", {
+    fetch("https://ecommercefjsapi.onrender.com/sales", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -163,7 +163,7 @@ const Cart = () => {
             const newAmount =
               productToUpdate.amount - cartProduct.amountProducts;
             // Recupera todos los campos del producto original
-            fetch(`http://localhost:8000/products/${cartProduct.productId}`, {
+            fetch(`https://ecommercefjsapi.onrender.com/products/${cartProduct.productId}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",

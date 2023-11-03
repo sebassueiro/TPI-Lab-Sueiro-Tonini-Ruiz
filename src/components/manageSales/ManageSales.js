@@ -12,7 +12,7 @@ const ManageSales = () => {
   const navigate = useNavigate();
   const translate = useTranslation();
   useEffect(() => {
-    fetch("http://localhost:8000/sales", {
+    fetch("https://ecommercefjsapi.onrender.com/sales", {
       headers: {
         accept: "application/json",
       },
