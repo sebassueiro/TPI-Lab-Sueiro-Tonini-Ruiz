@@ -145,7 +145,9 @@ const AddProduct = () => {
         amount,
         url,
       };
-      const newProductId = products[products.length - 1].id + 1;
+
+      const newProductId =
+        products.length === 0 ? 1 : products[products.length - 1].id + 1;
 
       fetch("http://localhost:8000/products", {
         method: "POST",
@@ -185,6 +187,7 @@ const AddProduct = () => {
       setSize("");
       setAmount("");
       setUrl("");
+      navigate("/manageProducts")
 
       toast.success(translate("alert_success"));
     }

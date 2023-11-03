@@ -29,13 +29,13 @@ const FilteredSales = ({
         <div className="border rounded p-3">
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
-              <label style={{ width: "330px" }}>Seleccione email:</label>
+              <label style={{ width: "330px" }}>{translate("select_email")}</label>
               <select
                 className="mr-2 form-select"
                 onChange={emailHandler}
                 value={emailSelected}
               >
-                <option value="Todos">Todos los emails</option>
+                <option value="Todos">{translate("all_email")}</option>
                 {sales
                   .map((sale) => sale.email)
                   .filter(

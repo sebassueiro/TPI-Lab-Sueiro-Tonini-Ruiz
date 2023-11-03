@@ -112,7 +112,7 @@ const MainPage = () => {
               className="m-2 btn btn-outline-dark"
               onClick={manageSalesHandler}
             >
-              Lista de ventas
+              {translate("list_sales")}
             </button>
           )}
         </div>

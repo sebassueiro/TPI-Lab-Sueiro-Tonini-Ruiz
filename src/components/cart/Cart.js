@@ -127,7 +127,7 @@ const Cart = () => {
   }, []);
 
   const buyCartButtonHandler = () => {
-    const newSalesId = sales[sales.length - 1].id + 1;
+    const newSalesId = sales.length === 0 ? 1 : sales[sales.length - 1].id + 1;
     const newSale = {
       id: newSalesId,
       email: user.email,
@@ -238,6 +238,14 @@ const Cart = () => {
       ) : (
         <h1>{translate("cart_empty")}</h1>
       )}
+      <button
+          className="m-2 btn btn-outline-dark"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          {translate("back_to_shop")}
+        </button>
       <ToastContainer
         position="top-center"
         autoClose={3000}
