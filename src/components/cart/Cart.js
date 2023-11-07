@@ -3,6 +3,7 @@ import useTranslation from "../../custom/useTranslation/useTranslation";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
+import "./Cart.css"
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -188,13 +189,12 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="cart-container">
       <h3>{translate("cart")}</h3>
       {cart ? (
         <div>
           {products.map((product) => (
             <div className="cardProduct" key={product.id}>
-              <img id="imagen" src={product.url} alt={product.name} />
               <h4>{product.name}</h4>
               <p>
                 {translate("price")}: ${product.price}
@@ -228,12 +228,11 @@ const Cart = () => {
               </button>
             </div>
           ))}
-          <h3>
-            {translate("total_price")} ${totalPrice}
-          </h3>
-          <button onClick={clearCart}>{translate("delete_cart")}</button>
-
-          <button onClick={buyCartButtonHandler}>{translate("buy")}</button>
+          <div className="cart-summary">
+            <h3>{translate("total_price")} ${totalPrice}</h3>
+            <button className=" btn btn-outline-dark" onClick={clearCart}>{translate("delete_cart")}</button>
+            <button className=" btn btn-outline-dark" onClick={buyCartButtonHandler}>{translate("buy")}</button>
+          </div>
         </div>
       ) : (
         <h1>{translate("cart_empty")}</h1>
